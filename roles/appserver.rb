@@ -1,3 +1,3 @@
 name "appserver"
 description ""
-run_list "recipe[mysql::client]", "recipe[rails]"
+run_list "recipe[mysql::client]"
