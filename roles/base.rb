@@ -33,5 +33,6 @@ run_list(
   "recipe[users::sysadmins]", 
   "recipe[sudo]", 
   "recipe[postfix]", 
-  "recipe[ssh_known_hosts]"
+  "recipe[ssh_known_hosts]",
+  "recipe[iptables]"
 ) 
