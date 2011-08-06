@@ -34,5 +34,6 @@ run_list(
   "recipe[sudo]", 
   "recipe[postfix]", 
   "recipe[ssh_known_hosts]",
-  "recipe[iptables]"
+  "recipe[iptables]",
+  "recipe[denyhosts]"
 ) 
