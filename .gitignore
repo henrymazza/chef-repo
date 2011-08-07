@@ -1,5 +1,6 @@
 .rake_test_cache
 .DS_Store
 .chef/*
-data_bags/users/**
+data_bags/**
+keys/**
 
