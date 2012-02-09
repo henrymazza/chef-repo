@@ -19,7 +19,6 @@ Redis, a fast lightweight database
 Supports platforms: debian and ubuntu
 
 Cookbook dependencies:
-
 * runit
 * install_from
 * metachef
