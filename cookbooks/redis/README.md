@@ -1,62 +1,61 @@
 # redis chef cookbook
 
-Installs and configures Redis server
+Redis: a fast, flexible datastore offering an extremely useful set of data structure primitives
 
 ## Overview
 
 Redis, a fast lightweight database
 
-## Attributes
-
-* `[:redis][:address]`                - Redis server IP address (default: "0.0.0.0")
-  IP address to bind.  The default is any.
-* `[:redis][:port]`                   - Redis server port (default: "6379")
-  TCP port to bind.  The default is 6379.
-* `[:redis][:pid_file]`               - Redis PID file path (default: "/var/run/redis.pid")
-  Path to the PID file when daemonized.  The default is /var/run/redis.pid.
-* `[:redis][:log_file]`               - Redis log file path (default: "/var/log/redis/redis.log")
-  Path to the log file when daemonized.  The default is /var/log/redis.log.
-* `[:redis][:data_dir]`               - Redis database directory (default: "/var/lib/redis")
-  Path to the directory for database files.  The default is /var/lib/redis.
-* `[:redis][:dbfile]`                 - Redis database filename (default: "dump.rdb")
-  Filename for the database storage.  The default is dump.rdb.
-* `[:redis][:client_timeout]`         - Redis client timeout (default: "300")
-  Timeout, in seconds, for disconnection of idle clients.  The default is 300 (5 minutes).
-* `[:redis][:glueoutputbuf]`          - Redis output buffer coalescing (default: "yes")
-  Glue small output buffers together into larger TCP packets.  The default is yes.
-* `[:redis][:saves]`                  - Redis disk persistence policies
-  An array of arrays of time, changed objects policies for persisting data to disk.  The default is [[900, 1], [300, 10], [60, 10000]].
-* `[:redis][:slave]`                  - Redis replication slave (default: "no")
-  Act as a replication slave to a master redis database.  The default is no.
-* `[:redis][:master_server]`          - Redis replication master server name (default: "master-redis.domain")
-  The master server for this replication slave.  The default is master-redis.domain.
-* `[:redis][:master_port]`            - Redis replication master server port (default: "6379")
-  The master server port for this replication slave.  The default is 6379.
-* `[:redis][:sharedobjects]`          - Redis shared object compression (default: "no")
-  Attempt to reduce memory use by sharing storage for substrings.  The default is no.
-* `[:redis][:shareobjectspoolsize]`   - Redis shared object pool size (default: "1024")
-  The size of the pool for object sharing.  The default is 1024.
-* `[:redis][:home_dir]`               -  (default: "/usr/local/share/redis")
-* `[:redis][:install_url]`            -  (default: "http://redis.googlecode.com/files/redis-2.0.2.tar.gz")
-* `[:redis][:shareobjects]`           -  (default: "no")
-* `[:redis][:addr]`                   -  (default: "0.0.0.0")
-
 ## Recipes 
 
+* `client`                   - Client support for Redis database
 * `default`                  - Base configuration for redis
-* `install_from_package`     - Install From Package
+* `install_from_package`     - Install From Ubuntu Package -- easy but lags in version
 * `install_from_release`     - Install From Release
-* `server`                   - Server
-
+* `server`                   - Redis server with runit service
 
 ## Integration
 
 Supports platforms: debian and ubuntu
 
 Cookbook dependencies:
+
 * runit
 * install_from
+* metachef
 
+
+## Attributes
+
+* `[:redis][:home_dir]`               -  (default: "/usr/local/share/redis")
+* `[:redis][:pid_file]`               - Redis PID file path (default: "/var/run/redis.pid")
+  - Path to the PID file when daemonized.
+* `[:redis][:log_dir]`                - Redis log dir path (default: "/var/log/redis")
+  - Path to the log directory when daemonized -- will be stored in [log_dir]/redis.log.
+* `[:redis][:data_dir]`               - Redis database directory (default: "/var/lib/redis")
+  - Path to the directory for database files.
+* `[:redis][:db_basename]`            - Redis database filename (default: "dump.rdb")
+  - Filename for the database storage.
+* `[:redis][:release_url]`            - URL for redis release package (default: "http://redis.googlecode.com/files/redis-:version:.tar.gz")
+  - If using the install_from_release strategy, the URL for the release tarball
+* `[:redis][:glueoutputbuf]`          - Redis output buffer coalescing (default: "yes")
+  - Glue small output buffers together into larger TCP packets.
+* `[:redis][:saves]`                  - Redis disk persistence policies
+  - An array of arrays of time, changed objects policies for persisting data to disk.
+* `[:redis][:slave]`                  - Redis replication slave (default: "no")
+  - Act as a replication slave to a master redis database.
+* `[:redis][:shareobjects]`           - Redis shared object compression (default: "no") (default: "no")
+  - Attempt to reduce memory use by sharing storage for substrings.
+* `[:redis][:conf_dir]`               -  (default: "/etc/redis")
+* `[:redis][:user]`                   -  (default: "redis")
+* `[:redis][:version]`                -  (default: "2.0.2")
+* `[:redis][:server][:addr]`          - IP address to bind. (default: "0.0.0.0")
+* `[:redis][:server][:port]`          - Redis server port (default: "6379")
+  - TCP port to bind.
+* `[:redis][:server][:timeout]`       - Redis server timeout (default: "300")
+  - Timeout, in seconds, for disconnection of idle clients.
+* `[:users][:redis][:uid]`            -  (default: "335")
+* `[:groups][:redis][:gid]`           -  (default: "335")
 
 ## License and Author
 

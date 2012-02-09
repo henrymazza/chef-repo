@@ -1,6 +1,6 @@
 #
 # Cookbook Name::       redis
-# Description::         Server
+# Description::         Redis server with runit service
 # Recipe::              server
 # Author::              Benjamin Black
 #
@@ -19,33 +19,24 @@
 # limitations under the License.
 #
 
-include_recipe "runit"
+include_recipe 'runit'
+include_recipe 'metachef'
+include_recipe 'redis::default'
 
-group("redis"){ gid 335 }
-user "redis" do
-  comment   "Redis-server runner"
-  uid       335
-  gid       "redis"
-  shell     "/bin/false"
+daemon_user(:redis) do
+  home          node[:redis][:data_dir]
 end
 
-template "/etc/init.d/redis-server" do
-  source "redis-server-init-d.erb"
-  owner "root"
-  group "root"
-  mode 0744
+standard_dirs('redis.server') do
+  directories   :conf_dir, :log_dir, :data_dir
 end
 
-runit_service "redis-server" do
-  action :enable
+kill_old_service('redis-server'){ only_if{ File.exists?("/etc/init.d/redis-server") } }
+
+runit_service "redis_server" do
+  run_state     node[:redis][:server][:run_state]
+  options       node[:redis]
 end
 
-template "/etc/redis/redis.conf" do
-  source "redis.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-  notifies(:restart, resources(:service => "redis-server")) unless node[:platform_version].to_f < 9.0
-end
-
-provide_service("#{node[:cluster_name]}-redis", :port => node[:redis][:port] )
+announce(:redis, :server,
+  :port => node[:redis][:server][:port])

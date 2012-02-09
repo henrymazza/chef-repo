@@ -19,24 +19,16 @@
 # limitations under the License.
 #
 
-directory "/var/log/redis" do
-  owner     "redis"
-  group     "redis"
-  mode      "0755"
-  action    :create
+include_recipe 'metachef'
+
+standard_dirs('redis.server') do
+  directories   :conf_dir
 end
 
-directory node[:redis][:data_dir] do
-  owner     "redis"
-  group     "redis"
-  mode      "0755"
-  action    :create
-  recursive true
-end
-
-directory "/etc/redis" do
-  owner     "root"
-  group     "root"
-  mode      "0755"
-  action    :create
+template "#{node[:redis][:conf_dir]}/redis.conf" do
+  source        "redis.conf.erb"
+  owner         "root"
+  group         "root"
+  mode          "0644"
+  variables     :redis => node[:redis], :redis_server => node[:redis][:server]
 end
