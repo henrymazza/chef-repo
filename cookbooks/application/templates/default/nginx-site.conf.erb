@@ -5,9 +5,9 @@ server {
   gzip on;
 
   location ~ ^/(assets|images|javascripts|stylesheets|swfs|system)/ {
-      gzip_static on;
-      expires     max;
-      add_header  Cache-Control public;
+    gzip_static on;
+    expires     max;
+    add_header  Cache-Control public;
   }
 
   location = /favicon.ico {
@@ -16,7 +16,7 @@ server {
   }
 
   location ~ \.php$ {
-          deny  all;
+    deny  all;
   }
 
   root <%= @deploy_to %>/current/public;
