@@ -47,7 +47,7 @@ search(:apps) do |app|
     app['databases'].each do |env,db|
       db_info[env] = db
     end
-  end
+  end if app['database_master_role'] # eventually the application doesn't have a database
 end
 
 include_recipe "mysql::server"
@@ -90,5 +90,5 @@ search(:apps) do |app|
         end
       end
     end
-  end
+  end if app['database_master_role'] # eventually the application doesn't have a database
 end
