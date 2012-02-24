@@ -1,0 +1,19 @@
+; domcarlo.com [272834]
+$TTL 86400
+@	IN	SOA	ns1.linode.com. hostmaster.officina.me. 2012012047 14400 14400 1209600 86400
+@		NS	ns1.linode.com.
+@		NS	ns2.linode.com.
+@		NS	ns3.linode.com.
+@		NS	ns4.linode.com.
+@		NS	ns5.linode.com.
+@			MX	10	ASPMX.L.GOOGLE.COM.
+@			MX	20	ALT1.ASPMX.L.GOOGLE.COM.
+@			MX	30	ALT2.ASPMX.L.GOOGLE.COM.
+@			MX	40	ASPMX2.GOOGLEMAIL.COM.
+@			MX	50	ASPMX3.GOOGLEMAIL.COM.
+@			TXT	"v=spf1 include:_spf.google.com ip4:173.203.121.250 ~all"
+@			A	74.207.235.208
+*			A	74.207.235.208
+mail			A	74.207.235.208
+static0			A	74.207.235.208
+www			A	74.207.235.208
