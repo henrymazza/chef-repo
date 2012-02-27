@@ -1,0 +1,25 @@
+$ORIGIN mantostore.com
+$TTL 86400
+@ IN SOA ns.slicehost.net. hostmaster.mantostore.com. (
+  20120224180750 ; serial number
+  1d             ; time to refresh
+  1d             ; time to retry
+  4w             ; time to expire
+  1h             ; minimum ttl
+)
+
+@                               IN NS         ns1.slicehost.net         
+@                               IN NS         ns2.slicehost.net         
+@                               IN NS         ns3.slicehost.net         
+
+@                               IN NS         ns1.slicehost.net.        ; ID=1175791
+
+@                               IN MX         20 mx2.emailsrvr.com.     ; ID=1208634
+@                               IN MX         10 mx1.emailsrvr.com.     ; ID=1191788
+
+@                               IN TXT        "v=spf1 include:emailsrvr.com ip4:173.203.121.250 ~all" ; ID=1191734
+
+*.mantostore.com.               IN A          173.203.121.250           ; ID=1198481
+@                               IN A          173.203.121.250           ; ID=1175789
+mail                            IN A          173.203.121.250           ; ID=1191787
+www                             IN A          173.203.121.250           ; ID=1175790
