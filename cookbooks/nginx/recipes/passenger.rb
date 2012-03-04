@@ -23,7 +23,8 @@ node.override["nginx"]["src_binary"] = "/opt/nginx/sbin/nginx"
 nginx_version = node[:nginx][:version]
 
 remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
-  source "http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz"
+  # source "http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz"
+  source "http://nginx.org/download/nginx-#{nginx_version}.tar.gz"
   action :create_if_missing
 end
 

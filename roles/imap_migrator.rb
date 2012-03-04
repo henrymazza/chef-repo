@@ -1,5 +1,5 @@
 name "imap_migrator"
-	run_list "recipe[application]"
+	run_list "recipe[redis]", "recipe[application]"
  
 	override_attributes :apps => { 
 	  :imap_migrator=> { 

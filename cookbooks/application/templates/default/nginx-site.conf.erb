@@ -1,6 +1,6 @@
 server {
   listen   80;
-  server_name <%= @id %>.officina.chef  <%= @domains.join(' ') %> <%= @domains.map {|d| "~^static\\d.#{d}$"}.join ' ' %> <%= @id %>.<%= node[:domain] %> <%= @id %>.<%= node[:fqdn] %>;
+  server_name <%= @id %>.officina.chef  <%= @domains.join(' ') if @domains %> <%= @domains.map {|d| "~^static\\d.#{d}$"}.join ' ' if @domains %> <%= @id %>.<%= node[:domain] %> <%= @id %>.<%= node[:fqdn] %>;
 
   gzip on;
 
@@ -34,10 +34,10 @@ server {
   ssl_certificate_key @ssl_certificate_key;
   ssl_certificate @ssl_certificate;
 
-  keepalive_timeout   10; 
-  send_timeout      12; 
-  sendfile        on; 
-  tcp_nodelay        on; 
+  keepalive_timeout   10;
+  send_timeout      12;
+  sendfile        on;
+  tcp_nodelay        on;
 
   gzip on;
 
