@@ -6,37 +6,11 @@ Installs/Configures resque
 
 Sets up [Resque](https://github.com/defunkt/resque), "a Redis-backed Ruby library for creating background jobs, placing them on multiple queues, and processing them later."
 
-## Attributes
-
-* `[:resque][:dir]`                   -  (default: "/data/db/resque")
-* `[:resque][:log_dir]`               -  (default: "/data/db/resque/log")
-* `[:resque][:tmp_dir]`               -  (default: "/data/db/resque/tmp")
-* `[:resque][:data_dir]`              -  (default: "/data/db/resque/data")
-* `[:resque][:swapdir]`               -  (default: "/data/db/resque/swap")
-* `[:resque][:conf_dir]`              -  (default: "/etc/resque")
-* `[:resque][:dbfile]`                -  (default: "resque_queue.rdb")
-* `[:resque][:cluster_name]`          -  (default: "cluster_name")
-* `[:resque][:namespace]`             -  (default: "cluster_name")
-* `[:resque][:user]`                  -  (default: "resque")
-* `[:resque][:group]`                 -  (default: "resque")
-* `[:resque][:queue_address]`         -  (default: "10.20.30.40")
-* `[:resque][:queue_port]`            -  (default: "6388")
-* `[:resque][:dashboard_port]`        -  (default: "6389")
-* `[:resque][:redis_client_timeout]`  -  (default: "300")
-* `[:resque][:redis_glueoutputbuf]`   -  (default: "yes")
-* `[:resque][:redis_vm_enabled]`      -  (default: "yes")
-* `[:resque][:redis_vm_max_memory]`   -  (default: "128m")
-* `[:resque][:redis_vm_pages]`        -  (default: "16777216")
-* `[:resque][:redis_saves]`           - 
-* `[:resque][:redis_slave]`           -  (default: "no")
-* `[:resque][:app_env]`               -  (default: "production")
-* `[:resque][:home_dir]`              -  (default: "/data/db/resque")
-
 ## Recipes 
 
+* `dedicated_redis`          - Dedicated redis -- a redis solely for this resque
 * `default`                  - Base configuration for resque
 * `server`                   - Server
-
 
 ## Integration
 
@@ -46,6 +20,28 @@ Cookbook dependencies:
 * runit
 * redis
 
+
+## Attributes
+
+* `[:resque][:log_dir]`               -  (default: "/var/log/resque")
+* `[:resque][:tmp_dir]`               -  (default: "/data/db/resque/tmp")
+* `[:resque][:data_dir]`              -  (default: "/data/db/resque/data")
+* `[:resque][:journal_dir]`           -  (default: "/data/db/resque/swap")
+* `[:resque][:conf_dir]`              -  (default: "/etc/resque")
+* `[:resque][:db_basename]`           -  (default: "resque_queue.rdb")
+* `[:resque][:namespace]`             -  (default: "cluster_name")
+* `[:resque][:user]`                  -  (default: "resque")
+* `[:resque][:group]`                 -  (default: "resque")
+* `[:resque][:app_env]`               -  (default: "production")
+* `[:resque][:home_dir]`              -  (default: "/data/db/resque")
+* `[:resque][:pid_dir]`               -  (default: "/var/run/resque")
+* `[:resque][:redis][:run_state]`     -  (default: "start")
+* `[:resque][:redis][:server][:addr]` -  (default: "0.0.0.0")
+* `[:resque][:redis][:server][:port]` -  (default: "6388")
+* `[:resque][:dashboard][:port]`      -  (default: "6389")
+* `[:resque][:dashboard][:run_state]` -  (default: "start")
+* `[:users][:resque][:uid]`           -  (default: "336")
+* `[:groups][:resque][:gid]`          -  (default: "336")
 
 ## License and Author
 

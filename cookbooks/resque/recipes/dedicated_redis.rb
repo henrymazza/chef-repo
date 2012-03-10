@@ -1,7 +1,7 @@
 #
 # Cookbook Name::       resque
-# Description::         Server
-# Recipe::              server
+# Description::         Dedicated redis -- a redis solely for this resque
+# Recipe::              dedicated_redis
 # Author::              Philip (flip) Kromer - Infochimps, Inc
 #
 # Copyright 2011, Philip (flip) Kromer - Infochimps, Inc
@@ -19,44 +19,33 @@
 # limitations under the License.
 #
 
-include_recipe 'redis::client'
-include_recipe 'runit'
-
-#
-# Install
-#
-
-gem_package 'thin'
-gem_package 'rack'
-gem_package 'resque'
-gem_package 'redis'
-gem_package 'redis-namespace'
-gem_package 'yajl-ruby'
-
-daemon_user('resque')
-
-standard_dirs('resque') do
-  directories :home_dir, :log_dir, :tmp_dir, :data_dir, :journal_dir, :conf_dir
-end
+include_recipe 'redis'
+include_recipe 'resque'
+include_recipe "runit"
 
 #
 # Config
 #
 
-# include resque_conf in your scripts
-template File.join(node[:resque][:conf_dir], 'resque_conf.rb') do
-  source        'resque_conf.rb.erb'
+# Redis config
+template File.join(node[:resque][:conf_dir], 'resque_redis.conf') do
+  source        'redis.conf.erb'
+  cookbook      'redis'
   mode          "0644"
   action        :create
+  variables     :redis => node[:redis].to_hash.merge(node[:resque].to_hash).merge(node[:resque][:redis].to_hash)
 end
 
 #
 # Daemonize
 #
 
-runit_service 'resque_dashboard' do
-  run_state     node[:resque][:dashboard][:run_state]
+runit_service 'resque_redis' do
+  run_restart   false
+  run_state     node[:resque][:redis][:run_state]
+  cookbook      'redis'
+  template_name 'redis_server'
   options       node[:resque]
 end
 
-announce(:resque, :dashboard, :port => node[:resque][:dashboard_port])
+announce(:resque, :redis, :port => node[:resque][:redis][:port])

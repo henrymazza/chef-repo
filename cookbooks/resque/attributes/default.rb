@@ -1,30 +1,31 @@
-default[:resque][:home_dir]                   = '/data/db/resque'
-default[:resque][:log_dir]               = '/data/db/resque/log'
-default[:resque][:tmp_dir]               = '/data/db/resque/tmp'
-default[:resque][:data_dir]                 = "/data/db/resque/data"
-default[:resque][:swapdir]               = "/data/db/resque/swap"
-default[:resque][:conf_dir]              = '/etc/resque'
-default[:resque][:dbfile]                = "resque_queue.rdb"
 
-default[:resque][:cluster_name]          = node[:cluster_name]
+#
+# Locations
+#
 
-default[:resque][:namespace]             = node[:cluster_name]
+default[:resque][:home_dir]             = '/data/db/resque'
+default[:resque][:conf_dir]             = '/etc/resque'
+default[:resque][:log_dir]              = '/var/log/resque'
+default[:resque][:pid_dir]              = '/var/run/resque'
 
-default[:resque][:user]                  = 'resque'
-default[:resque][:group]                 = 'resque'
+default[:resque][:tmp_dir]              = '/data/db/resque/tmp'
+default[:resque][:data_dir]             = '/data/db/resque/data'
+default[:resque][:journal_dir]          = '/data/db/resque/swap'
 
-default[:resque][:queue_address]         = node[:cloud][:private_ips].first
-default[:resque][:queue_port]            = "6388"
-default[:resque][:dashboard_port]        = "6389"
+default[:resque][:db_basename]          = 'resque_queue.rdb'
 
-default[:resque][:redis_client_timeout]  = "300"
-default[:resque][:redis_glueoutputbuf]   = "yes"
-default[:resque][:redis_vm_enabled]      = "yes"
-default[:resque][:redis_vm_max_memory]   = "128m"     # 512m
-default[:resque][:redis_vm_pages]        = "16777216" # 134217728
+default[:resque][:user]                 = 'resque'
+default[:resque][:group]                = 'resque'
+default[:users ]['resque' ][:uid]       = 336
+default[:groups]['resque' ][:gid]       = 336
 
-default[:resque][:redis_saves]           = [["900", "1"], ["300", "10"], ["60", "10000"]]
-default[:resque][:redis_slave]           = "no"
-# default[:resque][:redis_master_server] = "redis-master." + domain
-# default[:resque][:redis_master_port]   = "6388"
-default[:resque][:app_env]               = 'production'
+default[:resque][:namespace]            = node[:cluster_name]
+
+default[:resque][:redis][:server][:addr] = '0.0.0.0'
+default[:resque][:redis][:server][:port] = '6388'
+default[:resque][:dashboard][:port]      = '6389'
+
+default[:resque][:redis    ][:run_state] = :start
+default[:resque][:dashboard][:run_state] = :start
+
+default[:resque][:app_env]              = 'production'
