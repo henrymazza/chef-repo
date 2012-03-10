@@ -1,7 +1,8 @@
+**/.vagrant
 .rake_test_cache
 .DS_Store
 .chef/*
 data_bags/**
 keys/**
-
-iso/*
+**.box
+**.iso

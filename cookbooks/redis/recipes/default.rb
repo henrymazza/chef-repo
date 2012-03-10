@@ -8,9 +8,7 @@
 #
 #
 
-package "build-essential" do
-  action :install
-end
+depends "build-essential"
 
 user node[:redis][:user] do
   action :create
