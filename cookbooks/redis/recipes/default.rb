@@ -8,7 +8,7 @@
 #
 #
 
-depends "build-essential"
+include_recipe "build-essential"
 
 user node[:redis][:user] do
   action :create
