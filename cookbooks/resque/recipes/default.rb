@@ -1,22 +1,17 @@
 #
-# Cookbook Name::       resque
-# Description::         Base configuration for resque
-# Recipe::              default
-# Author::              Philip (flip) Kromer - Infochimps, Inc
+# Cookbook Name:: resque
+# Recipe:: default
 #
-# Copyright 2011, Philip (flip) Kromer - Infochimps, Inc
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# We're not setting up Resque this way
+# because our projects use different rubies and specify their gems via Bundler
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-
+# if ['solo', 'util'].include?(node[:instance_role])
+#   %w[bluepill resque redis redis-namespace yajl-ruby].each do |install_gem|
+#     if node.run_state[:seen_recipes].has_key?("ruby_enterprise")
+#       ree_gem install_gem
+#     else
+#       gem_package install_gem
+#     end
+#   end
+# end
