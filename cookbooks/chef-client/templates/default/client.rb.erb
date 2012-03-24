@@ -1,5 +1,5 @@
 log_level        :info
-log_location     STDOUT
+
 
 <% if Chef::Config.has_key?(:chef_server_url) -%>
 chef_server_url  "<%= Chef::Config[:chef_server_url] %>"
@@ -35,9 +35,17 @@ ENV['HTTP_PROXY'] = "<%= node["chef_client"]["http_proxy"] %>"
 Ohai::Config[:plugin_path] << "<%= node["ohai"]["plugin_path"] %>"
 <% end -%>
 
-# /etc/chef/client.rb
-require "/var/chef/handlers/email_me"
+begin
+  require "/var/cache/handlers/email_me"
+  email_handler = Officina::EmailMe.new "chef@officina.me", "fabio.mazarotto@me.com"
+  exception_handlers << email_handler
+rescue LoadError
+  nil
+end
 
-email_handler = Officina::EmailMe.new "chef@<%= node[:domain] %>", "fabio.mazarotto@me.com"
-
-exception_handlers << email_handler
+begin
+  require "/var/cache/handlers/updated_resources.rb"
+  report_handlers << SimpleReport::UpdatedResources.new
+rescue LoadError
+  nil
+end
