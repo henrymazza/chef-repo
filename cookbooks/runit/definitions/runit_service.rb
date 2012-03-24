@@ -71,9 +71,9 @@ define :runit_service, :directory => nil, :only_if => false, :finish_script => f
     mode 0755
     source "sv-#{params[:log_template_name]}-log-run.erb"
     cookbook params[:cookbook] if params[:cookbook]
-    # if params[:options].respond_to?(:has_key?)
+    if params[:options].respond_to?(:has_key?)
       variables :options => params[:options]
-    # end
+    end
   end
 
   unless params[:env].empty?
