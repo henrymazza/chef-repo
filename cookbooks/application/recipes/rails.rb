@@ -209,10 +209,11 @@ deploy_revision app['id'] do
     end
   end
 
-  symlink_before_migrate({
-    "database.yml" => "config/database.yml",
-    "memcached.yml" => "config/memcached.yml"
-  })
+  ymls = Hash.new
+  ymls['database.yml'] = "config/database.yml" if app['databases']
+  ymls['memcached.yml'] = "config/memcached.yml" if app['memcached_role']
+  symlink_before_migrate ymls
+
 
   if app['migrate'][node.chef_environment] && node[:apps][app['id']][node.chef_environment][:run_migrations]
     migrate true
