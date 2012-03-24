@@ -43,7 +43,7 @@ bash "compile_redis_source" do
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
     tar zxf redis.tar.gz
-    cd antirez-redis-7961d7e
+    cd antirez-redis-9a5cbf9
     make && make install
   EOH
   creates "/usr/local/bin/redis-server"
