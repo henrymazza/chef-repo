@@ -7,7 +7,7 @@ include_recipe "rvm"
   package pkg
 end
 
-# install essential gems only in default ruby (1.9.2)
+# install essential gems only in default ruby (1.9.3)
 ["passenger", "bundler"].each do |gem|
   gem_package gem do
     gem_binary "/usr/local/rvm/bin/rvm default exec gem"

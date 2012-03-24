@@ -34,7 +34,7 @@ http {
   gzip_vary on;
   <% end %>
 
-  passenger_root /usr/local/rvm/gems/ruby-1.9.2-p290/gems/passenger-3.0.8/;
+  passenger_root /usr/local/rvm/gems/ruby-<%= node["rvm"]["default_ruby"] %>/gems/passenger-3.0.11/;
   passenger_ruby /usr/local/rvm/bin/ruby;
 
   server_names_hash_bucket_size <%= node[:nginx][:server_names_hash_bucket_size] %>;
