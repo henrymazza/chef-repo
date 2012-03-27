@@ -179,6 +179,12 @@ deploy_revision app['id'] do
   ssh_wrapper "#{app['deploy_to']}/deploy-ssh-wrapper" if app['deploy_key']
   shallow_clone true
   notifies :restart, "service[nginx]", :delayed
+  after_restart do
+    execute "pgrep -f resque | xargs -l sudo kill -QUIT " do
+      user "root"
+      ignore_failure true
+    end
+  end
   before_migrate do
     if app['gems'].has_key?('bundler')
       link "#{release_path}/vendor/bundle" do
@@ -226,7 +232,8 @@ deploy_revision app['id'] do
     execute "/usr/local/rvm/bin/rvm #{app['rvm_ruby']} exec bundle exec rake assets:precompile RAILS_ENV=production" do
       ignore_failure true
       cwd release_path
-      notifies :restart, "service[nginx]", :delayed
+      # this gives an error: service not found. the same above works!
+      # notifies :restart, "service[nginx]", :delayed
     end
     ruby_block "remove_run_migrations" do
       block do
