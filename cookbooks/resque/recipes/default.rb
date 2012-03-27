@@ -26,6 +26,6 @@ apps.each do |app|
     user "root"
     ignore_failure true
     action :nothing
-    subscribes :restart, "service[#{app}-resque]"
+    # subscribes :restart, "service[#{app}-resque]"
   end
 end
