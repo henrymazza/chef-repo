@@ -14,6 +14,8 @@ apps = node.run_list.roles & search(:apps).map(&:id)
 apps.each do |app|
   rvm_ruby = search(:apps, "id:#{app}").first['rvm_ruby']
   runit_service "#{app}-resque" do
+    owner app
+    group app
     template_name "resque"
     options({
       :app_dir => "/var/www/apps/#{app}/current",
