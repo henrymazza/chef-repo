@@ -223,7 +223,7 @@ deploy_revision app['id'] do
 
   if app['migrate'][node.chef_environment] && node[:apps][app['id']][node.chef_environment][:run_migrations]
     migrate true
-    migration_command app['migration_command'] || "rake db:migrate"
+    migration_command app['migration_command'] || "/usr/local/rvm/bin/rvm #{app['rvm_ruby']} exec bundle exec rake db:migrate"
   else
     migrate false
   end
@@ -255,3 +255,6 @@ template "#{node[:nginx][:dir]}/sites-available/#{app['id']}" do
 end
 
 nginx_site app['id'] 
+
+node[:backup][:s3][:sync_directories] << "#{app['deploy_to']}/shared"
+
