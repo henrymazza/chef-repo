@@ -20,10 +20,19 @@ package "libxml-dev" do
 end
 
 
-['backup', 's3sync', 'fog', 'mail', 'whenever', 'popen4'].each do |gem_name|
+['backup', 's3sync', 'fog', 'mail', 'whenever', 'popen4', 'parallel'].each do |gem_name|
   gem_package gem_name do
     action :install
+    gem_binary   "/usr/local/rvm/bin/rvm all do gem"
   end
+end
+
+user node[:backup][:backup_user] do
+  comment "Backup User"
+  home "/home/#{node[:backup][:backup_user]}"
+  system true
+  gid "admin"
+  supports :manage_home => true
 end
 
 ['Backup', 'Backup/config'].each do |dir|
@@ -37,7 +46,6 @@ template "/home/#{node[:backup][:backup_user]}/Backup/config.rb" do
   owner node[:backup][:backup_user]
   source "config.rb.erb"
   variables(:config => node[:backup])
-  not_if { File.exists?("/home/#{node[:backup][:backup_user]}/Backup/config.rb")}
 end
 
 
@@ -46,7 +54,6 @@ template "/home/#{node[:backup][:backup_user]}/Backup/config/schedule.rb" do
   owner node[:backup][:backup_user]
   source "schedule.rb.erb"
   variables(:config => node[:backup])
-  not_if { File.exists?("/home/#{node[:backup][:backup_user]}/Backup/config/schedule.rb")}
 end
 
 template "/etc/logrotate.d/whenever_log" do

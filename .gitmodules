@@ -4,3 +4,18 @@
 [submodule "cookbooks/runit"]
 	path = cookbooks/runit
 	url = https://github.com/jtimberman/runit.git
+[submodule "cookbooks/dnsimple"]
+	path = cookbooks/dnsimple
+	url = https://github.com/heavywater/chef-dnsimple.git
+[submodule "cookbooks/backup"]
+	path = cookbooks/backup
+	url = https://github.com/pyrat/chef-backup.git
+[submodule "cookbooks/ruby_build"]
+	path = cookbooks/ruby_build
+	url = git://github.com/fnichol/chef-ruby_build.git
+[submodule "cookbooks/rbenv"]
+	path = cookbooks/rbenv
+	url = https://github.com/fnichol/chef-rbenv.git
+[submodule "cookbooks/unicorn"]
+	path = cookbooks/unicorn
+	url = https://github.com/damm/chef-unicorn.git
