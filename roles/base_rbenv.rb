@@ -17,9 +17,6 @@ override_attributes(
     "validation_client_name" => "officina-validator",
     "init_style" => "runit"
   },
-  :rvm => {
-    "default_ruby" => '1.9.3-p125'
-  },
   :backup => {
     :backup_user => 'backup_agent',
     :mail => {
@@ -43,7 +40,7 @@ run_list(
   "recipe[chef-client::delete_validation]",
   "recipe[runit]",
   "recipe[chef-client::config]",
-  "recipe[rbenv::system]",
+  "recipe[rbenv]",
   "recipe[chef_handler]",
   "recipe[chef-client]",
   "recipe[hostname]", 
@@ -53,5 +50,5 @@ run_list(
   "recipe[ssh_known_hosts]",
   "recipe[iptables]",
   "recipe[denyhosts]"
-  # "recipe[backup]" make it RVMless
+  # "recipe[backup]" TODO: make it RVMless
 ) 
