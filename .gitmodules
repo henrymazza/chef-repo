@@ -16,6 +16,12 @@
 [submodule "cookbooks/rbenv"]
 	path = cookbooks/rbenv
 	url = https://github.com/fnichol/chef-rbenv.git
-[submodule "cookbooks/unicorn"]
-	path = cookbooks/unicorn
-	url = https://github.com/damm/chef-unicorn.git
+[submodule "cookbooks/application"]
+	path = cookbooks/application
+	url = https://github.com/opscode-cookbooks/application.git
+[submodule "cookbooks/application_ruby"]
+	path = cookbooks/application_ruby
+	url = https://github.com/opscode-cookbooks/application_ruby.git
+[submodule "cookbooks/application_nginx"]
+	path = cookbooks/application_nginx
+	url = https://github.com/opscode-cookbooks/application_nginx.git
