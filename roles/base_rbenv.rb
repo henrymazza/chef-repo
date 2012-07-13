@@ -40,7 +40,7 @@ run_list(
   "recipe[chef-client::delete_validation]",
   "recipe[runit]",
   "recipe[chef-client::config]",
-  "recipe[rbenv]",
+  "recipe[rbenv::system]",
   "recipe[chef_handler]",
   "recipe[chef-client]",
   "recipe[hostname]", 

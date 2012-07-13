@@ -8,6 +8,8 @@
 #
 #
 
+rbenv_ruby "1.9.3-p194"
+
 group "apps"
 
 user "aki2" do
@@ -15,6 +17,8 @@ user "aki2" do
   gid "apps"
   home "/home/aki2"
 end
+
+directory "/home/aki2/logs/"
 
 application "aki2" do
   path "/home/aki2/app"
@@ -26,14 +30,25 @@ application "aki2" do
 
   repository "git@github.com:henrymazza/akivest.git"
 
-  rails do
-    # Rails-specific configuration
+	# create a mysql database
+	mysql_database 'akivest' do
+		connection ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
+		action :create
+		# database: akivest
+		# username: akivest
+		# password: aki666pass
+		# socket: /var/run/mysqld/mysqld.sock
+	end
+
+  unicorn do
+    # port or socket to make comunication between nginx and unicorn
+    port "/tmp/unicorn.todo.sock"
+    bundler true
   end
 
   nginx_load_balancer do
     static_files "/assets" => "images"
     # use our very personal nginx conf file 
     template "load_balancer.conf.erb"
-    port "/tmp/unicorn.todo.sock"
   end
 end

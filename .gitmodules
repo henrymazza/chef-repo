@@ -28,3 +28,6 @@
 [submodule "cookbooks/unicorn"]
 	path = cookbooks/unicorn
 	url = https://github.com/opscode-cookbooks/unicorn.git
+[submodule "cookbooks/database"]
+	path = cookbooks/database
+	url = https://github.com/opscode-cookbooks/database.git
