@@ -20,6 +20,16 @@ end
 
 directory "/home/aki2/logs/"
 
+# create a mysql database
+mysql_database 'akivest' do
+  connection ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
+  action :create
+  # database: akivest
+  # username: akivest
+  # password: aki666pass
+  # socket: /var/run/mysqld/mysqld.sock
+end
+
 application "aki2" do
   path "/home/aki2/app"
   owner "aki2"
@@ -29,16 +39,6 @@ application "aki2" do
   deploy_key aki2['deploy_key']
 
   repository "git@github.com:henrymazza/akivest.git"
-
-	# create a mysql database
-	mysql_database 'akivest' do
-		connection ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
-		action :create
-		# database: akivest
-		# username: akivest
-		# password: aki666pass
-		# socket: /var/run/mysqld/mysqld.sock
-	end
 
   unicorn do
     # port or socket to make comunication between nginx and unicorn
