@@ -6,7 +6,8 @@
   <body>
     <h1>Officina Server:</h1>
     <p><%= node[:fqdn] %></p>
-    <p><%= node[:uptime] %></p>
+    <p><strong>Uptime:</strong><%= node[:uptime] %></p>
+    <p>Last run: <%= DateTime.now %></p>
     <ul>
       <% for recipe in node[:recipes] %>
         <li><%= recipe %></li>

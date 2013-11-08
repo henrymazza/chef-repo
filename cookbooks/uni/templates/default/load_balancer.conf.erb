@@ -1,14 +1,14 @@
-upstream unicorn {
-  server unix:/tmp/unicorn.todo.sock fail_timeout=0;
+upstream unicorn2 {
+  server unix:/tmp/unicorn2.todo.sock fail_timeout=0;
 }
 
 server {
   listen 80 deferred;
-  server_name aki2.<%= node[:fqdn] %> akivest.com.br *.akivest.com.br;
-  root /home/aki2/app/current/public/;
-  access_log  /home/aki2/logs/localhost.access.log;
+  server_name uni.<%= node[:fqdn] %> ciadouniforme.com *.ciadouniforme.com;
+  root /home/uni/app/current/public/;
+  access_log  /home/uni/logs/localhost.access.log;
 
-  try_files $uri/index.html $uri @unicorn;
+  try_files $uri/index.html $uri @unicorn2;
 
   location ~* ^/(images|javascripts|stylesheets)/ {
       # Per RFC2616 - 1 year maximum expiry
@@ -21,20 +21,22 @@ server {
       # reached the expiry date sent in the Expires header.
       add_header Last-Modified "";
       add_header ETag "";
-	  
+
       gzip_static on;
-	  
+
       break;
   }
 
-  location @unicorn {
+  location @unicorn2 {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://unicorn;
+    proxy_pass http://unicorn2;
   }
-  
+
   error_page 500 502 503 504 /500.html;
+  error_page 404 /404.html;
+  error_page 422 /422.html;
   client_max_body_size 4G;
   keepalive_timeout 10;
 }

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export PATH=/usr/local/rbenv/bin:/usr/local/rbenv/shims:$PATH
+
+exec 2>&1
+exec /var/www/ip-echo/ip-echo.rb

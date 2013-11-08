@@ -54,3 +54,17 @@ service "nginx" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
+
+nginx_site "default" 
+
+directory "/var/www/nginx-default" do
+  owner node[:nginx][:user]
+  recursive true
+end
+
+template "/var/www/nginx-default/index.html" do
+  owner node[:nginx][:user]
+  source "index.html.erb"
+end
+
+iptables_rule "port_http"

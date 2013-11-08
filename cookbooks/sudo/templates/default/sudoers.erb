@@ -5,6 +5,7 @@
 #
 
 Defaults        !lecture,tty_tickets,!fqdn
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # User privilege specification
 root          ALL=(ALL) ALL
@@ -12,6 +13,8 @@ root          ALL=(ALL) ALL
 <% @sudoers_users.each do |user| -%>
 <%= user %>   ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
 <% end -%>
+fabio ALL=(ALL) ALL
+vagrant ALL=(ALL) ALL
 
 # Members of the sysadmin group may gain root privileges
 %sysadmin     ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL

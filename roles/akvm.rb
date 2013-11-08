@@ -1,15 +1,14 @@
-name "base_rbenv"
-description "The base role for systems that serve HTTP traffic, Rails ready. This is a modification to work with rbenv instead RVM."
+name "akvm"
+description "Akivest's Virtual Private Server"
 
 default_attributes(
+  # node['rbenv']['rubies'] = [ "1.9.3-p0", "jruby-1.6.5" ]
   "rbenv" => {
     'rubies'  => ['2.0.0-p247'],
     "global" => "2.0.0-p247",
     "gems" => {
       "2.0.0-p247" => [
-        {'name' => 'mysql'},
-        {'name' => 'bundler'},
-        {'name' => 'rake'}
+        {'name' => 'bundler'}
       ]
     }
   },
@@ -52,9 +51,12 @@ run_list(
   "recipe[sudo]",
   "recipe[postfix]",
   "recipe[ssh_known_hosts]",
-  "recipe[denyhosts]",
+  #"recipe[denyhosts]",
+  "recipe[kvm::host]",
+  "recipe[kvm::host-tuning]",
   "role[monitoring]"
-  # "recipe[munin::client]",
-  # "recipe[munin::server]",
+  #"recipe[munin::client]",
+  #"recipe[munin::server]"
   # "recipe[backup]" TODO: make it RVMless
 )
+
