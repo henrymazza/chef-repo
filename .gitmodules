@@ -1,12 +1,6 @@
-[submodule "cookbooks/rvm"]
-	path = cookbooks/rvm
-	url = https://github.com/bramswenson/cookbook-rvm.git
 [submodule "cookbooks/runit"]
 	path = cookbooks/runit
 	url = https://github.com/jtimberman/runit.git
-[submodule "cookbooks/dnsimple"]
-	path = cookbooks/dnsimple
-	url = https://github.com/heavywater/chef-dnsimple.git
 [submodule "cookbooks/backup"]
 	path = cookbooks/backup
 	url = https://github.com/pyrat/chef-backup.git

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-cd <%= @options[:app].path %>/current
-
-PATH=<%= @options[:app].environment["PATH"] %>:$PATH
-
-exec 2>&1
-exec chpst -u uni /home/aki/app/current/bin/unicorn -c /etc/unicorn/uni
