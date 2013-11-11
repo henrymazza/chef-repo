@@ -20,12 +20,22 @@ uni_home = "/home/uni"
 
 group "apps"
 
-directory uni_home
+directory uni_home do
+  owner "uni"
+  group "apps"
+end
 
 user "uni" do
   comment "Uni Application"
   gid "apps"
   home uni_home
+  shell '/bin/bash'
+end
+
+template "/home/uni/.bashrc" do
+  source "bashrc.erb"
+  owner "uni"
+  group "apps"
 end
 
 directory "/home/uni/logs/" do
