@@ -3,7 +3,7 @@ upstream unicorn {
 }
 
 server {
-  listen 80 deferred;
+  listen 80;
   server_name aki2.<%= node[:fqdn] %> akivest.com.br *.akivest.com.br;
   root /home/aki2/app/current/public/;
   access_log  /home/aki2/logs/localhost.access.log;

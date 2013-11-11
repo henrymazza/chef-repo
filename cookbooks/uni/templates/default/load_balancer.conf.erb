@@ -3,7 +3,7 @@ upstream unicorn2 {
 }
 
 server {
-  listen 80 deferred;
+  listen 80;
   server_name uni.<%= node[:fqdn] %> ciadouniforme.com *.ciadouniforme.com;
   root /home/uni/app/current/public/;
   access_log  /home/uni/logs/localhost.access.log;
