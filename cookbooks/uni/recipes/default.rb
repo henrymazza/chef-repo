@@ -43,6 +43,11 @@ directory "/home/uni/logs/" do
   group "apps"
 end
 
+directory "/home/uni/app/shared/log/" do
+  owner "uni"
+  group "apps"
+end
+
 directory "/home/uni/s3" do
   owner "uni"
   group "apps"
@@ -88,24 +93,19 @@ application "uni" do
   owner "uni"
   group "apps"
 
+  migrate true
+
   revision "master"
 
   uni = search('apps', "id:uni").first
   deploy_key uni['deploy_key']
   # it's supposed to be ok with the defaults
-  #symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log' => 'log'})
+  symlinks( {'log' => 'log'})
 
   repository "git@github.com:henrymazza/uni.git"
 
   before_symlink do
     current_release = release_path
-
-    # Create a local variable for the node so we'll have access to
-    # the attributes
-    deploy_node = node
-
-    # A local variable with the deploy resource.
-    deploy_resource = new_resource
 
     log `pwd && ls #{current_release}`
 
@@ -123,18 +123,40 @@ application "uni" do
     log `pwd && ls #{current_release}`
   end
 
+  before_restart do
+    current_release = release_path
+    # load database if it haven't being done yet
+    execute " bin/rake bootstrap:all" do
+      environment ({
+        'RAILS_ENV' => 'production',
+        'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+      })
+      cwd current_release
+      user "uni"
+      group "apps"
+    end
+
+  end
+
   rails do
     precompile_assets true
-    gems ["bundler", "rake"]
+    bundler true
+    bundle_command "bin/bundle"
+    gems ["bundler", "rake", "unicorn"]
     database_template "database.yml.erb"
   end
 
   unicorn "/etc/unicorn/" do
     # port or socket to make comunication between nginx and unicorn
     port "/tmp/unicorn2.todo.sock"
-    environment "PATH" => "./bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin"
     bundler true
     worker_processes 4
+    environment "PATH" => "./bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+    # Once it's using Runit, stdout and sterr goes to /etc/sv/uni/log/main/current
+    #stderr_path "/home/uni/app/shared/log/unicorn_err.log"
+    #stdout_path "/home/uni/app/shared/log/unicorn.log"
+
   end
 
   nginx_load_balancer do
