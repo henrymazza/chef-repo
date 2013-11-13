@@ -9,7 +9,7 @@ default_attributes(
       "2.0.0-p247" => [
         {'name' => 'mysql'},
         {'name' => 'bundler'},
-        {'name' => 'rake'}
+        {'name' => 'rake', options: { force: true }}
       ]
     }
   },

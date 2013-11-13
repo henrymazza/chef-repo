@@ -88,14 +88,20 @@ mysql_database_user 'uni' do
 end
 
 application "uni" do
-  action :force_deploy
+  action :deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
 
   migrate true
-
   revision "master"
+
+  # Rails resource uses it internally
+  environment ({
+    'RAILS_ENV' => 'production',
+    'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+    'JUJUBA' => 'assassina'
+  })
 
   uni = search('apps', "id:uni").first
   deploy_key uni['deploy_key']
@@ -135,11 +141,20 @@ application "uni" do
       user "uni"
       group "apps"
     end
+    execute " bin/rake assets:precompile" do
+      environment ({
+        'RAILS_ENV' => 'production',
+        'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+      })
+      cwd current_release
+      user "uni"
+      group "apps"
+    end
 
   end
 
   rails do
-    precompile_assets true
+    precompile_assets false # it fails if chef's embedded ruby is less than 2.0
     bundler true
     bundle_command "bin/bundle"
     gems ["bundler", "rake", "unicorn"]
