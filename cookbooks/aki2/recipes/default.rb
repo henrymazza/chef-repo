@@ -128,10 +128,24 @@ execute "untar system backup" do
   subscribes :run, resources(:s3_aware_remote_file => '/home/aki2/s3/aki2_system_backup.tar')
 end
 
-# TODO untar file and move backup to place at 'shared_path'
+file "/home/aki2/bundle_wrapper.sh" do
+  user 'aki2'
+  group 'apps'
+  mode "0750"
 
+  content <<-EOH
+#!/bin/bash
+
+source /etc/profile.d/rbenv.sh
+
+exec bundle $@
+  EOH
+
+end
+
+# TODO untar file and move backup to place at 'shared_path'
 application "aki2" do
-  #action :force_deploy
+  action :deploy
   path "/home/aki2/app"
   owner "aki2"
   group "apps"
@@ -170,18 +184,16 @@ application "aki2" do
   end
 
   rails do
+    bundler true
+    bundle_command "/home/aki2/bundle_wrapper.sh"
     precompile_assets true
-    gems ["bundler", "rake"]
     database_template "database.yml.erb"
   end
 
   unicorn do
     # port or socket to make comunication between nginx and unicorn
     port "/tmp/unicorn.todo.sock"
-    environment "PATH" => "./bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin"
-    bundler true
-    # stderr_path "/home/aki2/logs/unicorn.stderr.log"
-    # stdout_path "/home/aki2/logs/unicorn.stdout.log"
+
     worker_processes 4
   end
 

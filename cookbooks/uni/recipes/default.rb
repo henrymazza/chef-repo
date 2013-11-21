@@ -87,8 +87,23 @@ mysql_database_user 'uni' do
   action :grant
 end
 
+file "/home/uni/bundle_wrapper.sh" do
+  user 'uni'
+  group 'apps'
+  mode "0750"
+
+  content <<-EOH
+#!/bin/bash
+
+source /etc/profile.d/rbenv.sh
+
+exec bundle $@
+  EOH
+
+end
+
 application "uni" do
-  action :deploy
+  action :force_deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
@@ -141,23 +156,13 @@ application "uni" do
       user "uni"
       group "apps"
     end
-    execute " bin/rake assets:precompile" do
-      environment ({
-        'RAILS_ENV' => 'production',
-        'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      })
-      cwd current_release
-      user "uni"
-      group "apps"
-    end
 
   end
 
   rails do
-    precompile_assets false # it fails if chef's embedded ruby is less than 2.0
+    precompile_assets true # it fails if chef's embedded ruby is less than 2.0
     bundler true
-    bundle_command "bin/bundle"
-    gems ["bundler", "rake", "unicorn"]
+    bundle_command "/home/uni/bundle_wrapper.sh"
     database_template "database.yml.erb"
   end
 
@@ -166,12 +171,6 @@ application "uni" do
     port "/tmp/unicorn2.todo.sock"
     bundler true
     worker_processes 4
-    environment "PATH" => "./bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-    # Once it's using Runit, stdout and sterr goes to /etc/sv/uni/log/main/current
-    #stderr_path "/home/uni/app/shared/log/unicorn_err.log"
-    #stdout_path "/home/uni/app/shared/log/unicorn.log"
-
   end
 
   nginx_load_balancer do
