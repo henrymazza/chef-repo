@@ -95,6 +95,7 @@ file "/home/uni/bundle_wrapper.sh" do
   content <<-EOH
 #!/bin/bash
 
+export RAILS_ENV=production
 source /etc/profile.d/rbenv.sh
 
 exec bundle $@
@@ -121,7 +122,7 @@ application "uni" do
   uni = search('apps', "id:uni").first
   deploy_key uni['deploy_key']
   # it's supposed to be ok with the defaults
-  symlinks( {'log' => 'log'})
+  symlinks( {'log' => 'log', 'ibge.sqlite3' => 'db/ibge.sqlite3'})
 
   repository "git@github.com:henrymazza/uni.git"
 
