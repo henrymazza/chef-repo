@@ -87,6 +87,48 @@ mysql_database_user 'uni' do
   action :grant
 end
 
+#################################################
+# create a mysql database and mysql user for IBGE
+#################################################
+
+mysql_database 'ibge' do
+  node.default['mysql']['bind_address'] = 'localhost'
+  connection mysql_connection_info
+  database_name 'ibge'
+  action :create
+end
+
+mysql_database_user 'uni' do
+  connection mysql_connection_info
+  database_name 'ibge'
+  action :grant
+end
+
+#################################################
+# create a mysql database and mysql user for IBGE
+#################################################
+
+execute "createdb uni" do
+  user 'postgres'
+  returns [0, 1]
+end
+execute 'createuser uni' do
+  user 'postgres'
+  returns [0, 1]
+end
+execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni;"' do
+  user 'postgres'
+  returns [0, 1]
+end
+execute "createdb ibge" do
+  user 'postgres'
+  returns [0, 1]
+end
+execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni;"' do
+  user 'postgres'
+  returns [0, 1]
+end
+
 file "/home/uni/bundle_wrapper.sh" do
   user 'uni'
   group 'apps'
