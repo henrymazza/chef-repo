@@ -1,6 +1,7 @@
+set['postgresql']['version'] = 9.3
 set['postgresql']['enable_pgdg_apt'] = true
 set['postgresql']['dir'] = "/etc/postgresql/9.3/main"
-set['postgresql']['config']['data_directories'] = "/var/lib/postgresql/9.3/main"
+set['postgresql']['config']['data_directory'] = "/var/lib/postgresql/9.3/main"
 set['postgresql']['config']['hba_file'] = "/etc/postgresql/9.3/main/pg_hba.conf"
 set['postgresql']['config']['ident_file'] = "/etc/postgresql/9.3/main/pg_ident.conf"
 set['postgresql']['config']['external_pid_file'] = "/var/run/postgresql/9.3-main.pid"

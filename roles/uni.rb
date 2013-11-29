@@ -5,6 +5,6 @@ name "uni"
       "upgrade" => "sync"
     }
   )
-	run_list "recipe[uni]"
+  run_list "recipe[uni]"
 
 

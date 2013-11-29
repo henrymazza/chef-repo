@@ -116,7 +116,7 @@ execute 'createuser uni' do
   user 'postgres'
   returns [0, 1]
 end
-execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni;"' do
+execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
 end
@@ -124,7 +124,7 @@ execute "createdb ibge" do
   user 'postgres'
   returns [0, 1]
 end
-execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni;"' do
+execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
 end
@@ -203,7 +203,7 @@ application "uni" do
   end
 
   rails do
-    precompile_assets true # it fails if chef's embedded ruby is less than 2.0
+    precompile_assets true # (???) it fails if chef's embedded ruby is less than 2.0
     bundler true
     bundle_command "/home/uni/bundle_wrapper.sh"
     database_template "database.yml.erb"
