@@ -146,7 +146,7 @@ exec bundle $@
 end
 
 application "uni" do
-  action :force_deploy
+  action :deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
@@ -214,6 +214,7 @@ application "uni" do
     port "/tmp/unicorn2.todo.sock"
     bundler true
     worker_processes 4
+    preload_app true
   end
 
   nginx_load_balancer do
@@ -223,9 +224,20 @@ application "uni" do
   end
 
   after_restart do
-    "cd #{release_path} && whenever --update-crontab uni"
   end
 
 end
 
+# the config file was made by hand, so...
+package 's3cmd'
+
+cron "cookbooks_report" do
+  action :create
+  hour "22"
+  minute "0"
+  user "HMz"
+  mailto "admin@ciadouniforme.com"
+  command %Q{sudo -u uni pg_dump uni > /tmp/uni.psql && \
+    s3cmd put /tmp/uni.psql s3://ciadouniforme.com/backups/uni-`date -I`.psql}
+end
 
