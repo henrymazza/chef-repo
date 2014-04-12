@@ -37,7 +37,7 @@ Ohai::Config[:plugin_path] << "<%= node["ohai"]["plugin_path"] %>"
 
 begin
   require "/var/cache/handlers/email_me"
-  email_handler = Officina::EmailMe.new "chef@officina.me", "fabio.mazarotto@me.com"
+  email_handler = Officina::EmailMe.new "chef@officina.me", "fabio@officina.me"
   exception_handlers << email_handler
 rescue LoadError
   nil
