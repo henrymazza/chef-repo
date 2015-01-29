@@ -98,13 +98,18 @@ exec bundle $@
 end
 
 application "uni" do
-  action :force_deploy
+  action :deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
 
   migrate true
   revision "master"
+
+  restart_command do
+    execute "service uni restart"
+    user "root"
+  end
 
   # Rails resource uses it internally
   environment ({
@@ -188,10 +193,3 @@ cron "cookbooks_report" do
   command %Q{sudo -u uni pg_dump uni > /tmp/uni.psql && \
     s3cmd put /tmp/uni.psql s3://ciadouniforme.com/backups/uni-`date -I`.psql}
 end
-
-# Errbit stuff
-#package 'mongodb-10gen'
-#package 'libxml2 libxml2-dev libxslt-dev libcurl4-openssl-dev'
-
-
-
