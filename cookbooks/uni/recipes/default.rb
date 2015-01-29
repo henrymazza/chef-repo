@@ -15,6 +15,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "iptables"
+
 uni_ruby = "2.0.0-p195"
 uni_home = "/home/uni"
 
@@ -58,56 +60,6 @@ rbenv_ruby uni_ruby
 package "imagemagick"
 package "nodejs"
 
-gem_package "mysql" # install mysql on chef's running ruby environment
-
-mysql_connection_info = ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
-
-
-#########################################
-# create a mysql database and mysql user
-#########################################
-
-mysql_database 'uni' do
-  node.default['mysql']['bind_address'] = 'localhost'
-  connection mysql_connection_info
-  database_name 'uni'
-  action :create
-end
-
-mysql_database_user 'uni' do
-  connection mysql_connection_info
-  password 'uni666pass'
-  action :create
-end
-
-mysql_database_user 'uni' do
-  connection mysql_connection_info
-  password 'uni666pass'
-  database_name 'uni'
-  action :grant
-end
-
-#################################################
-# create a mysql database and mysql user for IBGE
-#################################################
-
-mysql_database 'ibge' do
-  node.default['mysql']['bind_address'] = 'localhost'
-  connection mysql_connection_info
-  database_name 'ibge'
-  action :create
-end
-
-mysql_database_user 'uni' do
-  connection mysql_connection_info
-  database_name 'ibge'
-  action :grant
-end
-
-#################################################
-# create a mysql database and mysql user for IBGE
-#################################################
-
 execute "createdb uni" do
   user 'postgres'
   returns [0, 1]
@@ -116,7 +68,7 @@ execute 'createuser uni' do
   user 'postgres'
   returns [0, 1]
 end
-execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni;"' do
+execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
 end
@@ -124,7 +76,7 @@ execute "createdb ibge" do
   user 'postgres'
   returns [0, 1]
 end
-execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni;"' do
+execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
 end
@@ -146,13 +98,18 @@ exec bundle $@
 end
 
 application "uni" do
-  action :force_deploy
+  action :deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
 
   migrate true
   revision "master"
+
+  restart_command do
+    execute "service uni restart"
+    user "root"
+  end
 
   # Rails resource uses it internally
   environment ({
@@ -172,12 +129,6 @@ application "uni" do
     current_release = release_path
 
     log `pwd && ls #{current_release}`
-
-    execute "rm database.yml" do
-      user          "uni"
-      group         "apps"
-      cwd           "#{ current_release }/config/"
-    end
 
     # this code is here in the assumption that if it doesn't exist the symlink will fail
     execute "rm -rf #{current_release}/public/system #{current_release}/tmp/pids #{current_release}/log" do
@@ -203,10 +154,10 @@ application "uni" do
   end
 
   rails do
-    precompile_assets true # it fails if chef's embedded ruby is less than 2.0
+    precompile_assets true # (???) it fails if chef's embedded ruby is less than 2.0
     bundler true
-    bundle_command "/home/uni/bundle_wrapper.sh"
     database_template "database.yml.erb"
+    bundle_command "/home/uni/bundle_wrapper.sh"
   end
 
   unicorn "/etc/unicorn/" do
@@ -214,6 +165,9 @@ application "uni" do
     port "/tmp/unicorn2.todo.sock"
     bundler true
     worker_processes 4
+    stderr_path "/home/uni/logs/unicorn.stderr.log"
+    stdout_path "/home/uni/logs/unicorn.stdout.log"
+    preload_app true
   end
 
   nginx_load_balancer do
@@ -223,9 +177,19 @@ application "uni" do
   end
 
   after_restart do
-    "cd #{release_path} && whenever --update-crontab uni"
   end
 
 end
 
+# the config file was made by hand, so...
+package 's3cmd'
 
+cron "cookbooks_report" do
+  action :create
+  hour "22"
+  minute "0"
+  user "HMz"
+  mailto "admin@ciadouniforme.com"
+  command %Q{sudo -u uni pg_dump uni > /tmp/uni.psql && \
+    s3cmd put /tmp/uni.psql s3://ciadouniforme.com/backups/uni-`date -I`.psql}
+end

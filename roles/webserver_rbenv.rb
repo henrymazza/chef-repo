@@ -5,8 +5,11 @@ override_attributes(
   # default[:nginx][:gzip_http_version] = "1.1"
   :nginx => {
     :gzip_http_version => '1.0'
+  },
+  :postgresql => {
+    version: "9.4"
   }
 )
 
-run_list "recipe[mysql::server]", "recipe[nginx]", "recipe[postfix]";
+run_list "recipe[mysql::server]", "recipe[nginx]", "recipe[postfix]", "recipe[postgresql::server]";
 
