@@ -14,6 +14,7 @@ DEPENDENCIES
   postfix
   postgresql
   rbenv
+  redis
   ssh_known_hosts
 
 GRAPH
@@ -61,12 +62,14 @@ GRAPH
   hostname (0.3.0)
     hostsfile (>= 0.0.0)
   hostsfile (2.4.5)
+  install_from (3.0.4)
   iptables (0.14.1)
   logrotate (1.8.0)
   mariadb (0.2.11)
     apt (>= 0.0.0)
     yum (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  metachef (3.0.4)
   mysql (6.0.12)
     smf (>= 0.0.0)
     yum-mysql-community (>= 0.0.0)
@@ -101,6 +104,10 @@ GRAPH
     build-essential (>= 0.0.0)
     git (>= 0.0.0)
     ohai (>= 1.1)
+  redis (3.0.4)
+    install_from (>= 0.0.0)
+    metachef (>= 0.0.0)
+    runit (>= 0.0.0)
   resource-control (0.1.1)
   rsyslog (1.14.0)
   runit (1.5.14)
