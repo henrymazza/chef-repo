@@ -11,6 +11,7 @@ DEPENDENCIES
   logrotate
   nginx
   ntp
+  postfix
   postgresql
   rbenv
   ssh_known_hosts
@@ -89,6 +90,7 @@ GRAPH
   passenger_apache2 (2.2.3)
     apache2 (~> 1.0)
     build-essential (>= 0.0.0)
+  postfix (3.6.2)
   postgresql (3.4.14)
     apt (>= 1.9.0)
     build-essential (>= 0.0.0)
