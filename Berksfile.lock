@@ -6,6 +6,7 @@ DEPENDENCIES
   chef-client
   database
   denyhosts
+  hostname
   iptables
   logrotate
   nginx
@@ -56,6 +57,9 @@ GRAPH
     windows (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  hostname (0.3.0)
+    hostsfile (>= 0.0.0)
+  hostsfile (2.4.5)
   iptables (0.14.1)
   logrotate (1.8.0)
   mariadb (0.2.11)
