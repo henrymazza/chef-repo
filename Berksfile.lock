@@ -15,6 +15,7 @@ DEPENDENCIES
   postgresql
   rbenv
   redis
+  resque
   ssh_known_hosts
 
 GRAPH
@@ -109,6 +110,9 @@ GRAPH
     metachef (>= 0.0.0)
     runit (>= 0.0.0)
   resource-control (0.1.1)
+  resque (3.0.4)
+    redis (>= 0.0.0)
+    runit (>= 0.0.0)
   rsyslog (1.14.0)
   runit (1.5.14)
     build-essential (>= 0.0.0)

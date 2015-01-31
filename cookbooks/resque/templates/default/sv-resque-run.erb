@@ -1,3 +1,0 @@
-#!/bin/sh
-exec 2>&1
-exec bash -c "cd '<%= @options[:app_dir] %>' && QUEUE=* COUNT=4 /usr/local/rvm/bin/rvm <%= @options[:app_ruby] %> do bundle exec rake resque:workers"
