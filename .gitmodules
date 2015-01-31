@@ -16,18 +16,12 @@
 [submodule "cookbooks/postfix"]
 	path = cookbooks/postfix
 	url = https://github.com/opscode-cookbooks/postfix.git
-[submodule "cookbooks/kvm"]
-	path = cookbooks/kvm
-	url = https://github.com/Youscribe/kvm-cookbook.git
 [submodule "cookbooks/ntp"]
 	path = cookbooks/ntp
 	url = https://github.com/opscode-cookbooks/ntp.git
 [submodule "cookbooks/modules"]
 	path = cookbooks/modules
 	url = https://github.com/Youscribe/modules-cookbook.git
-[submodule "cookbooks/guacamole"]
-	path = cookbooks/guacamole
-	url = https://github.com/gcymbalski/chef-guacamole.git
 [submodule "cookbooks/logrotate"]
 	path = cookbooks/logrotate
 	url = https://github.com/opscode-cookbooks/logrotate.git
