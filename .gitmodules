@@ -1,9 +1,6 @@
 [submodule "cookbooks/backup"]
 	path = cookbooks/backup
 	url = https://github.com/pyrat/chef-backup.git
-[submodule "cookbooks/windows"]
-	path = cookbooks/windows
-	url = https://github.com/opscode-cookbooks/windows.git
 [submodule "cookbook/build-essential"]
 	path = cookbook/build-essential
 	url = https://github.com/opscode-cookbooks/build-essential.git
