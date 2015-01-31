@@ -1,6 +1,3 @@
-[submodule "cookbooks/runit"]
-	path = cookbooks/runit
-	url = https://github.com/jtimberman/runit.git
 [submodule "cookbooks/backup"]
 	path = cookbooks/backup
 	url = https://github.com/pyrat/chef-backup.git

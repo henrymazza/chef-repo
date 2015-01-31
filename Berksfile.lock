@@ -17,6 +17,7 @@ DEPENDENCIES
   redis
   resque
   ruby_build
+  runit
   ssh_known_hosts
 
 GRAPH
