@@ -5,6 +5,7 @@ DEPENDENCIES
   build-essential
   chef-client
   database
+  denyhosts
   iptables
   logrotate
   nginx
@@ -44,6 +45,8 @@ GRAPH
   database (3.1.0)
     mysql2_chef_gem (~> 1.0)
     postgresql (>= 1.0.0)
+  denyhosts (1.0.0)
+    yum-epel (>= 0.0.0)
   dmg (2.2.2)
   freebsd (0.3.0)
   git (4.1.0)
