@@ -1,5 +1,7 @@
 DEPENDENCIES
   build-essential
+  iptables
 
 GRAPH
   build-essential (2.1.3)
+  iptables (0.14.1)

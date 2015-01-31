@@ -28,9 +28,6 @@
 [submodule "cookbooks/mysql"]
 	path = cookbooks/mysql
 	url = https://github.com/opscode-cookbooks/mysql
-[submodule "cookbooks/iptables"]
-	path = cookbooks/iptables
-	url = https://github.com/opscode-cookbooks/iptables.git
 [submodule "cookbooks/apt"]
 	path = cookbooks/apt
 	url = https://github.com/opscode-cookbooks/apt.git
