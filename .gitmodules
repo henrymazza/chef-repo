@@ -10,9 +10,6 @@
 [submodule "cookbooks/database"]
 	path = cookbooks/database
 	url = https://github.com/opscode-cookbooks/database.git
-[submodule "cookbooks/mysql"]
-	path = cookbooks/mysql
-	url = https://github.com/opscode-cookbooks/mysql
 [submodule "cookbooks/postfix"]
 	path = cookbooks/postfix
 	url = https://github.com/opscode-cookbooks/postfix.git
