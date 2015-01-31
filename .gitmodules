@@ -7,24 +7,12 @@
 [submodule "cookbooks/ruby_build"]
 	path = cookbooks/ruby_build
 	url = git://github.com/fnichol/chef-ruby_build.git
-[submodule "cookbooks/unicorn"]
-	path = cookbooks/unicorn
-	url = https://github.com/opscode-cookbooks/unicorn.git
 [submodule "cookbooks/database"]
 	path = cookbooks/database
 	url = https://github.com/opscode-cookbooks/database.git
 [submodule "cookbooks/mysql"]
 	path = cookbooks/mysql
 	url = https://github.com/opscode-cookbooks/mysql
-[submodule "cookbooks/apt"]
-	path = cookbooks/apt
-	url = https://github.com/opscode-cookbooks/apt.git
-[submodule "cookbooks/monit"]
-	path = cookbooks/monit
-	url = git://github.com/apsoto/monit.git
-[submodule "cookbooks/munin"]
-	path = cookbooks/munin
-	url = https://github.com/opscode-cookbooks/munin.git
 [submodule "cookbooks/postfix"]
 	path = cookbooks/postfix
 	url = https://github.com/opscode-cookbooks/postfix.git
@@ -34,33 +22,18 @@
 [submodule "cookbooks/ntp"]
 	path = cookbooks/ntp
 	url = https://github.com/opscode-cookbooks/ntp.git
-[submodule "cookbooks/sysctl"]
-	path = cookbooks/sysctl
-	url = https://github.com/Fewbytes/sysctl-cookbook.git
 [submodule "cookbooks/modules"]
 	path = cookbooks/modules
 	url = https://github.com/Youscribe/modules-cookbook.git
-[submodule "cookbooks/sysfs"]
-	path = cookbooks/sysfs
-	url = https://github.com/Youscribe/sysfs-cookbook.git
 [submodule "cookbooks/cpu"]
 	path = cookbooks/cpu
 	url = https://github.com/Youscribe/cpu-cookbook.git
 [submodule "cookbooks/guacamole"]
 	path = cookbooks/guacamole
 	url = https://github.com/gcymbalski/chef-guacamole.git
-[submodule "cookbooks/tomcat"]
-	path = cookbooks/tomcat
-	url = https://github.com/bryanwb/chef-tomcat.git
-[submodule "cookbooks/java"]
-	path = cookbooks/java
-	url = https://github.com/opscode-cookbooks/java.git
 [submodule "cookbooks/logrotate"]
 	path = cookbooks/logrotate
 	url = https://github.com/opscode-cookbooks/logrotate.git
-[submodule "cookbooks/ark"]
-	path = cookbooks/ark
-	url = https://github.com/opscode-cookbooks/ark.git
 [submodule "cookbooks/windows"]
 	path = cookbooks/windows
 	url = https://github.com/opscode-cookbooks/windows.git
