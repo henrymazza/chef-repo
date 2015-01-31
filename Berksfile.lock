@@ -5,8 +5,10 @@ DEPENDENCIES
   build-essential
   chef-client
   iptables
+  logrotate
   nginx
   rbenv
+  ssh_known_hosts
 
 GRAPH
   apache2 (1.11.0)
@@ -55,6 +57,7 @@ GRAPH
     yum-epel (~> 0.3)
   ohai (2.0.1)
   pacman (1.1.1)
+  partial_search (1.0.8)
   passenger_apache2 (2.2.3)
     apache2 (~> 1.0)
     build-essential (>= 0.0.0)
@@ -68,6 +71,8 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  ssh_known_hosts (2.0.0)
+    partial_search (>= 0.0.0)
   unicorn (2.0.0)
   windows (1.36.1)
     chef_handler (>= 0.0.0)

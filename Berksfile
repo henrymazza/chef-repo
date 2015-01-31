@@ -8,3 +8,4 @@ cookbook "application_ruby"
 cookbook "application_nginx"
 cookbook "chef-client"
 cookbook "nginx"
+cookbook 'ssh_known_hosts'
