@@ -8,6 +8,7 @@ DEPENDENCIES
   iptables
   logrotate
   nginx
+  ntp
   rbenv
   ssh_known_hosts
 
@@ -71,6 +72,7 @@ GRAPH
     ohai (~> 2.0)
     runit (~> 1.2)
     yum-epel (~> 0.3)
+  ntp (1.7.0)
   ohai (2.0.1)
   openssl (2.0.2)
     chef-sugar (>= 0.0.0)
@@ -89,6 +91,7 @@ GRAPH
     build-essential (>= 0.0.0)
     git (>= 0.0.0)
     ohai (>= 1.1)
+  resource-control (0.1.1)
   rsyslog (1.14.0)
   runit (1.5.14)
     build-essential (>= 0.0.0)
