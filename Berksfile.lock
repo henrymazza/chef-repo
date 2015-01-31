@@ -9,6 +9,7 @@ DEPENDENCIES
   logrotate
   nginx
   ntp
+  postgresql
   rbenv
   ssh_known_hosts
 
