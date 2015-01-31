@@ -10,9 +10,6 @@
 [submodule "cookbooks/postfix"]
 	path = cookbooks/postfix
 	url = https://github.com/opscode-cookbooks/postfix.git
-[submodule "cookbooks/modules"]
-	path = cookbooks/modules
-	url = https://github.com/Youscribe/modules-cookbook.git
 [submodule "cookbooks/windows"]
 	path = cookbooks/windows
 	url = https://github.com/opscode-cookbooks/windows.git
