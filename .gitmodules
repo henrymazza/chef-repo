@@ -82,9 +82,6 @@
 [submodule "cookbook/build-essential"]
 	path = cookbook/build-essential
 	url = https://github.com/opscode-cookbooks/build-essential.git
-[submodule "cookbooks/build-essential"]
-	path = cookbooks/build-essential
-	url = https://github.com/opscode-cookbooks/build-essential.git
 [submodule "cookbooks/postgresql"]
 	path = cookbooks/postgresql
 	url = https://github.com/hw-cookbooks/postgresql.git
