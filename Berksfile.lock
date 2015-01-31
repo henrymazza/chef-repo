@@ -5,6 +5,7 @@ DEPENDENCIES
   build-essential
   chef-client
   iptables
+  nginx
   rbenv
 
 GRAPH
