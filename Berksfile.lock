@@ -16,6 +16,7 @@ DEPENDENCIES
   rbenv
   redis
   resque
+  ruby_build
   ssh_known_hosts
 
 GRAPH
@@ -114,6 +115,7 @@ GRAPH
     redis (>= 0.0.0)
     runit (>= 0.0.0)
   rsyslog (1.14.0)
+  ruby_build (0.8.0)
   runit (1.5.14)
     build-essential (>= 0.0.0)
     yum (~> 3.0)
