@@ -25,9 +25,6 @@
 [submodule "cookbooks/modules"]
 	path = cookbooks/modules
 	url = https://github.com/Youscribe/modules-cookbook.git
-[submodule "cookbooks/cpu"]
-	path = cookbooks/cpu
-	url = https://github.com/Youscribe/cpu-cookbook.git
 [submodule "cookbooks/guacamole"]
 	path = cookbooks/guacamole
 	url = https://github.com/gcymbalski/chef-guacamole.git
