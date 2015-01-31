@@ -7,9 +7,6 @@
 [submodule "cookbooks/ruby_build"]
 	path = cookbooks/ruby_build
 	url = git://github.com/fnichol/chef-ruby_build.git
-[submodule "cookbooks/application"]
-	path = cookbooks/application
-	url = https://github.com/opscode-cookbooks/application.git
 [submodule "cookbooks/application_ruby"]
 	path = cookbooks/application_ruby
 	url = https://github.com/opscode-cookbooks/application_ruby.git
