@@ -1,6 +1,8 @@
 DEPENDENCIES
   application
   application_nginx
+    git: https://github.com/poise/application_nginx.git
+    revision: 6e03376880adfa119f74820f642cf5d7676fa043
   application_ruby
   build-essential
   chef-client
@@ -11,6 +13,7 @@ DEPENDENCIES
   ntp
   postgresql
   rbenv
+  ruby_build
   ssh_known_hosts
 
 GRAPH
@@ -20,8 +23,8 @@ GRAPH
     logrotate (>= 0.0.0)
     pacman (>= 0.0.0)
   application (4.1.6)
-  application_nginx (1.1.0)
-    application (>= 0.0.0)
+  application_nginx (2.0.3)
+    application (~> 4.0)
     nginx (>= 0.0.0)
   application_ruby (3.0.2)
     apache2 (>= 0.0.0)
@@ -94,6 +97,7 @@ GRAPH
     ohai (>= 1.1)
   resource-control (0.1.1)
   rsyslog (1.14.0)
+  ruby_build (0.8.0)
   runit (1.5.14)
     build-essential (>= 0.0.0)
     yum (~> 3.0)
