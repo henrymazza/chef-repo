@@ -19,6 +19,8 @@ DEPENDENCIES
   ruby_build
   runit
   ssh_known_hosts
+  sudo
+  users
 
 GRAPH
   apache2 (1.11.0)
@@ -126,7 +128,9 @@ GRAPH
     resource-control (>= 0.0.0)
   ssh_known_hosts (2.0.0)
     partial_search (>= 0.0.0)
+  sudo (2.7.1)
   unicorn (2.0.0)
+  users (1.7.0)
   windows (1.36.1)
     chef_handler (>= 0.0.0)
   yum (3.5.2)

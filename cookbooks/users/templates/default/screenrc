@@ -1,5 +1,0 @@
-startup_message off
-
-escape ^Oo
-
-shell -${SHELL}
