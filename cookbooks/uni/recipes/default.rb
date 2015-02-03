@@ -19,7 +19,7 @@ include_recipe "iptables"
 include_recipe "rbenv::default"
 include_recipe "rbenv::ruby_build"
 
-uni_ruby = "2.0.0-p195"
+uni_ruby = "2.2.0"
 uni_home = "/home/uni"
 
 group "apps"
