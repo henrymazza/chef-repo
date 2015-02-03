@@ -39,13 +39,11 @@ run_list(
   "recipe[build-essential]",
   "recipe[iptables]",
   # put here so libmysqlclient-dev gets installed before mysql gem.
-  "recipe[mysql::client]",
   "recipe[chef-client::delete_validation]",
   "recipe[runit]",
   "recipe[chef-client::config]",
   "recipe[ruby_build]",
-  "recipe[rbenv::system]",
-  "recipe[chef_handler]",
+  "recipe[rbenv::system_install]",
   "recipe[chef-client]",
   "recipe[hostname]",
   "recipe[users::sysadmins]",
@@ -54,7 +52,4 @@ run_list(
   "recipe[ssh_known_hosts]",
   "recipe[denyhosts]",
   "role[monitoring]"
-  # "recipe[munin::client]",
-  # "recipe[munin::server]",
-  # "recipe[backup]" TODO: make it RVMless
 )
