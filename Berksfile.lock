@@ -1,6 +1,8 @@
 DEPENDENCIES
   application
   application_nginx
+    git: https://github.com/poise/application_nginx.git
+    revision: 6e03376880adfa119f74820f642cf5d7676fa043
   application_ruby
   build-essential
   chef-client
@@ -14,6 +16,9 @@ DEPENDENCIES
   postfix
   postgresql
   rbenv
+    git: git://github.com/fnichol/chef-rbenv.git
+    revision: 0a3018634bafe58ad21c6ee271af015220e444b9
+    ref: 0a30186
   redis
   resque
   ruby_build
@@ -29,8 +34,8 @@ GRAPH
     logrotate (>= 0.0.0)
     pacman (>= 0.0.0)
   application (4.1.6)
-  application_nginx (1.1.0)
-    application (>= 0.0.0)
+  application_nginx (2.0.3)
+    application (~> 4.0)
     nginx (>= 0.0.0)
   application_ruby (3.0.2)
     apache2 (>= 0.0.0)
@@ -55,20 +60,13 @@ GRAPH
     postgresql (>= 1.0.0)
   denyhosts (1.0.0)
     yum-epel (>= 0.0.0)
-  dmg (2.2.2)
   freebsd (0.3.0)
-  git (4.1.0)
-    build-essential (>= 0.0.0)
-    dmg (>= 0.0.0)
-    runit (>= 1.0)
-    windows (>= 0.0.0)
-    yum (~> 3.0)
-    yum-epel (>= 0.0.0)
   hostname (0.3.0)
     hostsfile (>= 0.0.0)
   hostsfile (2.4.5)
   install_from (3.0.4)
   iptables (0.14.1)
+  java (1.31.0)
   logrotate (1.8.0)
   mariadb (0.2.11)
     apt (>= 0.0.0)
@@ -104,11 +102,9 @@ GRAPH
     build-essential (>= 0.0.0)
     openssl (>= 0.0.0)
   rbac (1.0.2)
-  rbenv (1.7.1)
-    apt (>= 0.0.0)
-    build-essential (>= 0.0.0)
-    git (>= 0.0.0)
-    ohai (>= 1.1)
+  rbenv (0.7.3)
+    java (> 1.4.0)
+    ruby_build (>= 0.0.0)
   redis (3.0.4)
     install_from (>= 0.0.0)
     metachef (>= 0.0.0)

@@ -11,5 +11,5 @@ override_attributes(
   }
 )
 
-run_list "recipe[mysql::server]", "recipe[nginx]", "recipe[postfix]", "recipe[postgresql::server]";
+run_list "recipe[mysql::service]", "recipe[nginx]", "recipe[postfix]", "recipe[postgresql::server]";
 
