@@ -5,5 +5,5 @@ name "aki2"
       "upgrade" => "sync"
     }
   )
-	run_list "recipe[aki2]"
- 
+run_list "recipe[aki2]"
+

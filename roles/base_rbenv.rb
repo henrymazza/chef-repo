@@ -43,7 +43,7 @@ run_list(
   "recipe[runit]",
   "recipe[chef-client::config]",
   "recipe[ruby_build]",
-  "recipe[rbenv::system_install]",
+  "recipe[rbenv::system]",
   "recipe[chef-client]",
   "recipe[hostname]",
   "recipe[users::sysadmins]",

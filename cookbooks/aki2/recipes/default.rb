@@ -11,7 +11,7 @@
 # (?) aki2 service should be aki2 owned? or apps group owned?
 #
 
-aki2_ruby = "2.0.0-p195"
+aki2_ruby = "2.0.0-p247"
 
 group "apps"
 
@@ -40,6 +40,13 @@ package "nodejs"
 
 gem_package "mysql" # install mysql on chef's running ruby environment
 
+mysql_service 'default' do
+  bind_address '0.0.0.0'
+  port '3306'
+  initial_root_password node['mysql']['server_root_password']
+  action [:create, :start]
+end
+
 mysql_connection_info = ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
 
 
@@ -48,9 +55,7 @@ mysql_connection_info = ({:host => "localhost", :username => 'root', :password =
 #########################################
 
 mysql_database 'akivest' do
-  node.default['mysql']['bind_address'] = 'localhost'
   connection mysql_connection_info
-  database_name 'akivest'
   action :create
 end
 
@@ -63,7 +68,6 @@ end
 mysql_database_user "akivest" do
   connection mysql_connection_info
   password 'aki666pass'
-  database_name 'akivest'
   action :grant
 end
 
@@ -72,61 +76,61 @@ end
 #######################################################################
 
 # TODO the timestamp must be dynamically defined
-s3_aware_remote_file "/home/aki2/s3/aki2_database.tar" do
-  source "s3-sa-east-1://officina-akivest2/backups/aki2_database/2012.09.18.13.47.48/aki2_database.tar"
-  access_key_id "AKIAIXIWLUD7NQQODZJA"
-  secret_access_key "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"
-  owner "root"
-  group "root"
-  mode 0644
-  action :nothing
+#s3_aware_remote_file "/home/aki2/s3/aki2_database.tar" do
+  #source "s3-sa-east-1://officina-akivest2/backups/aki2_database/2012.09.18.13.47.48/aki2_database.tar"
+  #access_key_id "AKIAIXIWLUD7NQQODZJA"
+  #secret_access_key "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"
+  #owner "root"
+  #group "root"
+  #mode 0644
+  #action :nothing
 
-  subscribes :create, resources(:mysql_database => "akivest")
-end
+  #subscribes :create, resources(:mysql_database => "akivest")
+#end
 
-execute "untar database" do
-  command "tar xvf aki2_database.tar"
-  user "aki2"
-  group "apps"
-  cwd "/home/aki2/s3/"
-  action :nothing
+#execute "untar database" do
+  #command "tar xvf aki2_database.tar"
+  #user "aki2"
+  #group "apps"
+  #cwd "/home/aki2/s3/"
+  #action :nothing
 
-  subscribes :run, resources(:s3_aware_remote_file => "/home/aki2/s3/aki2_database.tar")
-end
+  #subscribes :run, resources(:s3_aware_remote_file => "/home/aki2/s3/aki2_database.tar")
+#end
 
-execute "restore database" do
-  command "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} akivest < aki2_database/databases/MySQL/akivest.sql"
-  cwd "/home/aki2/s3/"
-  action :nothing
+#execute "restore database" do
+  #command "mysql -u #{mysql_connection_info[:username]} -p#{mysql_connection_info[:password]} akivest < aki2_database/databases/MySQL/akivest.sql"
+  #cwd "/home/aki2/s3/"
+  #action :nothing
 
-  subscribes :run, resources(:execute => "untar database")
-end
+  #subscribes :run, resources(:execute => "untar database")
+#end
 
 #######################################################################
 # If mysql_database creates the table, download and restore correspondent system files
 #######################################################################
 
 # TODO the timestamp must be dynamically defined
-s3_aware_remote_file "/home/aki2/s3/aki2_system_backup.tar" do
-  source "s3-sa-east-1://officina-akivest2/backups/aki2_files/2012.09.18.13.47.42/aki2_files.tar"
-  access_key_id "AKIAIXIWLUD7NQQODZJA"
-  secret_access_key "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"
-  owner "root"
-  group "root"
-  mode 0644
-  action :nothing
+#s3_aware_remote_file "/home/aki2/s3/aki2_system_backup.tar" do
+  #source "s3-sa-east-1://officina-akivest2/backups/aki2_files/2012.09.18.13.47.42/aki2_files.tar"
+  #access_key_id "AKIAIXIWLUD7NQQODZJA"
+  #secret_access_key "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"
+  #owner "root"
+  #group "root"
+  #mode 0644
+  #action :nothing
 
-  subscribes :create, resources(:mysql_database => 'akivest')
-end
+  #subscribes :create, resources(:mysql_database => 'akivest')
+#end
 
-execute "untar system backup" do
-  command "tar xvf aki2_system_backup.tar"
-  cwd "/home/aki2/s3/"
-  user "aki2"
-  group "apps"
-  action :nothing
-  subscribes :run, resources(:s3_aware_remote_file => '/home/aki2/s3/aki2_system_backup.tar')
-end
+#execute "untar system backup" do
+  #command "tar xvf aki2_system_backup.tar"
+  #cwd "/home/aki2/s3/"
+  #user "aki2"
+  #group "apps"
+  #action :nothing
+  #subscribes :run, resources(:s3_aware_remote_file => '/home/aki2/s3/aki2_system_backup.tar')
+#end
 
 file "/home/aki2/bundle_wrapper.sh" do
   user 'aki2'

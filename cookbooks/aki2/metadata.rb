@@ -1,3 +1,4 @@
+name             "aki2"
 maintainer       "YOUR_COMPANY_NAME"
 maintainer_email "YOUR_EMAIL"
 license          "All rights reserved"
@@ -11,3 +12,5 @@ depends "database"
 depends "application"
 depends "application_ruby"
 depends "application_nginx"
+depends "mysql"
+
