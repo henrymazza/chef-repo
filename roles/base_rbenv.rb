@@ -3,13 +3,13 @@ description "The base role for systems that serve HTTP traffic, Rails ready. Thi
 
 default_attributes(
   "rbenv" => {
-    'rubies'  => ['2.0.0-p247'],
-    "global" => "2.0.0-p247",
+    'rubies'  => ['2.3.0'],
+    "global" => "2.3.0",
     "gems" => {
-      "2.0.0-p247" => [
+      "2.3.0" => [
         {'name' => 'mysql'},
         {'name' => 'bundler'},
-        {'name' => 'rake', options: { force: true }}
+        {'name' => 'rake'}
       ]
     }
   },
@@ -50,6 +50,5 @@ run_list(
   "recipe[sudo]",
   "recipe[postfix]",
   "recipe[ssh_known_hosts]",
-  "recipe[denyhosts]",
   "role[monitoring]"
 )

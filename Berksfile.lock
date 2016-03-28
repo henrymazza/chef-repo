@@ -7,7 +7,6 @@ DEPENDENCIES
   build-essential
   chef-client
   database
-  denyhosts
   hostname
   iptables
   logrotate
@@ -58,8 +57,6 @@ GRAPH
   database (3.1.0)
     mysql2_chef_gem (~> 1.0)
     postgresql (>= 1.0.0)
-  denyhosts (1.0.0)
-    yum-epel (>= 0.0.0)
   freebsd (0.3.0)
   hostname (0.3.0)
     hostsfile (>= 0.0.0)

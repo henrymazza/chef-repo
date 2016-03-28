@@ -17,7 +17,7 @@
 
 include_recipe "iptables"
 
-uni_ruby = "2.0.0-p195"
+uni_ruby = "2.3.0"
 uni_home = "/home/uni"
 
 group "apps"
@@ -56,6 +56,11 @@ directory "/home/uni/s3" do
 end
 
 rbenv_ruby uni_ruby
+
+rbenv_gem "sass" do
+  rbenv_version uni_ruby
+  action :remove
+end
 
 package "imagemagick"
 package "nodejs"
@@ -168,6 +173,7 @@ application "uni" do
     stderr_path "/home/uni/logs/unicorn.stderr.log"
     stdout_path "/home/uni/logs/unicorn.stdout.log"
     preload_app true
+    worker_timeout 120
   end
 
   nginx_load_balancer do

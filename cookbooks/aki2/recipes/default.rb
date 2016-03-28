@@ -11,7 +11,7 @@
 # (?) aki2 service should be aki2 owned? or apps group owned?
 #
 
-aki2_ruby = "2.0.0-p247"
+aki2_ruby = "2.3.0"
 
 group "apps"
 
@@ -47,7 +47,7 @@ mysql_service 'default' do
   action [:create, :start]
 end
 
-mysql_connection_info = ({:host => "localhost", :username => 'root', :password => node['mysql']['server_root_password']})
+mysql_connection_info = ({:port => 3306, :host => "127.0.0.1", :username => 'root', :password => node['mysql']['server_root_password']})
 
 
 #########################################
@@ -59,13 +59,15 @@ mysql_database 'akivest' do
   action :create
 end
 
-mysql_database_user "akivest" do
+mysql_database_user "aki2" do
+  username 'aki2'
   connection mysql_connection_info
   password 'aki666pass'
   action :create
 end
 
-mysql_database_user "akivest" do
+mysql_database_user "aki2" do
+  username 'aki2'
   connection mysql_connection_info
   password 'aki666pass'
   action :grant
