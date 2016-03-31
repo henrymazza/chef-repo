@@ -2,7 +2,7 @@ source 'https://supermarket.chef.io'
 
 cookbook 'application'
 cookbook 'application_nginx', git: 'https://github.com/poise/application_nginx.git'
-cookbook 'application_ruby'
+cookbook 'application_ruby', '= 3.0.2'
 cookbook 'build-essential'
 cookbook 'chef-client'
 cookbook 'database'

@@ -165,15 +165,16 @@ application "uni" do
     bundle_command "/home/uni/bundle_wrapper.sh"
   end
 
+
   unicorn "/etc/unicorn/" do
     # port or socket to make comunication between nginx and unicorn
     port "/tmp/unicorn2.todo.sock"
+    worker_timeout 120
     bundler true
-    worker_processes 4
+    worker_processes 6
     stderr_path "/home/uni/logs/unicorn.stderr.log"
     stdout_path "/home/uni/logs/unicorn.stdout.log"
     preload_app true
-    worker_timeout 120
   end
 
   nginx_load_balancer do
