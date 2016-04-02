@@ -59,7 +59,8 @@ rbenv_ruby uni_ruby
 
 rbenv_gem "sass" do
   rbenv_version uni_ruby
-  action :remove
+  version "3.4.12"
+  action :install
 end
 
 package "imagemagick"
@@ -163,6 +164,7 @@ application "uni" do
     bundler true
     database_template "database.yml.erb"
     bundle_command "/home/uni/bundle_wrapper.sh"
+    #bundle_command "bin/bundle"
   end
 
 

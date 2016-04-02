@@ -39,9 +39,9 @@ run_list(
   "recipe[build-essential]",
   "recipe[iptables]",
   # put here so libmysqlclient-dev gets installed before mysql gem.
-  "recipe[chef-client::delete_validation]",
+  #"recipe[chef-client::delete_validation]",
   "recipe[runit]",
-  "recipe[chef-client::config]",
+  #"recipe[chef-client::config]",
   "recipe[ruby_build]",
   "recipe[rbenv::system]",
   "recipe[chef-client]",

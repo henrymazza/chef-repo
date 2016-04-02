@@ -14,7 +14,7 @@ cookbook 'nginx'
 cookbook 'ntp'
 cookbook 'postfix'
 cookbook 'postgresql'
-cookbook "rbenv", github: "fnichol/chef-rbenv", ref: "0a3018634bafe58ad21c6ee271af015220e444b9"
+cookbook "rbenv", github: "corewebdesign/chef-rbenv"
 cookbook 'redis'
 cookbook 'resque'
 cookbook 'ruby_build'

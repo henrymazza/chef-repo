@@ -15,9 +15,8 @@ DEPENDENCIES
   postfix
   postgresql
   rbenv
-    git: git://github.com/fnichol/chef-rbenv.git
-    revision: 0a3018634bafe58ad21c6ee271af015220e444b9
-    ref: 0a30186
+    git: git://github.com/corewebdesign/chef-rbenv.git
+    revision: 4936be39be34a115d7f59b5b0ab56556b8ee8fa4
   redis
   resque
   ruby_build
@@ -58,7 +57,8 @@ GRAPH
   hostsfile (2.4.5)
   install_from (3.0.4)
   iptables (0.14.1)
-  java (1.31.0)
+  java (1.39.0)
+    apt (>= 0.0.0)
   logrotate (1.8.0)
   mariadb (0.2.11)
     apt (>= 0.0.0)
