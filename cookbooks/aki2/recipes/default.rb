@@ -11,7 +11,7 @@
 # (?) aki2 service should be aki2 owned? or apps group owned?
 #
 
-aki2_ruby = "2.3.0"
+aki2_ruby = "2.0.0-p648"
 
 group "apps"
 

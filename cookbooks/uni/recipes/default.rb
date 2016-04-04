@@ -64,7 +64,9 @@ rbenv_gem "sass" do
 end
 
 package "imagemagick"
-package "nodejs"
+
+apt_package 'npm'
+npm_package "bower@1.7.7"
 
 execute "createdb uni" do
   user 'postgres'
@@ -160,7 +162,7 @@ application "uni" do
   end
 
   rails do
-    precompile_assets true # (???) it fails if chef's embedded ruby is less than 2.0
+    precompile_assets false # (???) it fails if chef's embedded ruby is less than 2.0
     bundler true
     database_template "database.yml.erb"
     bundle_command "/home/uni/bundle_wrapper.sh"
