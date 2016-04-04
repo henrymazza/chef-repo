@@ -6,6 +6,7 @@ description      'Installs/Configures uni'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
+depends "postgresql"
 depends "rbenv"
 depends "ruby_build"
 depends "application"
@@ -13,4 +14,4 @@ depends "application_ruby"
 depends "application_nginx"
 depends "iptables"
 depends "runit"
-depends "npm"
+depends "nodejs"

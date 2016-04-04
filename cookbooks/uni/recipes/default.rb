@@ -16,16 +16,12 @@
 #
 
 include_recipe "iptables"
+include_recipe "postgresql::server"
 
 uni_ruby = "2.3.0"
 uni_home = "/home/uni"
 
 group "apps"
-
-directory uni_home do
-  owner "uni"
-  group "apps"
-end
 
 user "uni" do
   comment "Uni Application"
@@ -33,6 +29,12 @@ user "uni" do
   home uni_home
   shell '/bin/bash'
 end
+
+directory uni_home do
+  owner "uni"
+  group "apps"
+end
+
 
 template "/home/uni/.bashrc" do
   source "bashrc.erb"
@@ -46,6 +48,7 @@ directory "/home/uni/logs/" do
 end
 
 directory "/home/uni/app/shared/log/" do
+  recursive true
   owner "uni"
   group "apps"
 end
@@ -63,10 +66,10 @@ rbenv_gem "sass" do
   action :install
 end
 
+package "libpq-dev"
 package "imagemagick"
 
-apt_package 'npm'
-npm_package "bower@1.7.7"
+nodejs_npm "bower"
 
 execute "createdb uni" do
   user 'postgres'

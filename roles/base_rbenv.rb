@@ -2,12 +2,16 @@ name "base_rbenv"
 description "The base role for systems that serve HTTP traffic, Rails ready. This is a modification to work with rbenv instead RVM."
 
 default_attributes(
+  "set_fqdn" => '*.officina.me',
   "rbenv" => {
-    'rubies'  => ['2.3.0'],
+    'rubies'  => ['2.3.0', '2.0.0-p648'],
     "global" => "2.3.0",
     "gems" => {
       "2.3.0" => [
-        {'name' => 'mysql'},
+        {'name' => 'bundler'},
+        {'name' => 'rake'}
+      ],
+      "2.0.0-p648" => [
         {'name' => 'bundler'},
         {'name' => 'rake'}
       ]
@@ -34,6 +38,7 @@ override_attributes(
   }
 )
 
+
 run_list(
   "recipe[base]",
   "recipe[build-essential]",
@@ -41,11 +46,10 @@ run_list(
   # put here so libmysqlclient-dev gets installed before mysql gem.
   #"recipe[chef-client::delete_validation]",
   "recipe[runit]",
-  #"recipe[chef-client::config]",
+  "recipe[chef-client::config]",
   "recipe[ruby_build]",
-  "recipe[npm]",
+  "recipe[nodejs]",
   "recipe[rbenv::system]",
-  "recipe[chef-client]",
   "recipe[hostname]",
   "recipe[users::sysadmins]",
   "recipe[sudo]",

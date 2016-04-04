@@ -1,4 +1,4 @@
-set['postgresql']['version'] = 9.4
+set['postgresql']['version'] = '9.4'
 set['postgresql']['enable_pgdg_apt'] = true
 set['postgresql']['dir'] = "/etc/postgresql/9.4/main"
 set['postgresql']['config']['data_directory'] = "/var/lib/postgresql/9.4/main"
