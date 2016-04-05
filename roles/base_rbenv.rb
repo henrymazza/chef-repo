@@ -38,7 +38,6 @@ override_attributes(
   }
 )
 
-
 run_list(
   "recipe[base]",
   "recipe[build-essential]",
@@ -48,9 +47,9 @@ run_list(
   "recipe[runit]",
   "recipe[chef-client::config]",
   "recipe[ruby_build]",
-  "recipe[nodejs]",
   "recipe[rbenv::system]",
   "recipe[hostname]",
+  "recipe[backstage]",
   "recipe[users::sysadmins]",
   "recipe[sudo]",
   "recipe[postfix]",

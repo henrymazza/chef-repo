@@ -23,6 +23,7 @@ DEPENDENCIES
   ruby_build
   runit
   ssh_known_hosts
+  sshd
   sudo
   users (= 1.7.0)
 
@@ -110,6 +111,7 @@ GRAPH
     windows (>= 1.2.2)
   ssh_known_hosts (2.0.0)
     partial_search (>= 0.0.0)
+  sshd (1.1.3)
   sudo (2.9.0)
   unicorn (2.1.2)
     build-essential (>= 0.0.0)
