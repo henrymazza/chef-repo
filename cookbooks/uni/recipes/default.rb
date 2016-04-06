@@ -17,7 +17,12 @@
 
 include_recipe "iptables"
 include_recipe "postgresql::server"
+include_recipe "redisio"
+include_recipe "redisio::enable"
 
+iptables_rule 'redis' do
+  action :enable
+end
 iptables_rule 'http' do
   action :enable
 end
@@ -117,7 +122,7 @@ application "uni" do
   group "apps"
 
   migrate true
-  revision "master"
+  revision node['uni']['revision']
 
   restart_command do
     execute "service uni restart"

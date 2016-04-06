@@ -17,7 +17,7 @@ DEPENDENCIES
   rbenv
     git: git://github.com/corewebdesign/chef-rbenv.git
     revision: 4936be39be34a115d7f59b5b0ab56556b8ee8fa4
-  redis
+  redisio
   resque
   ruby_build
   runit
@@ -88,6 +88,9 @@ GRAPH
     install_from (>= 0.0.0)
     metachef (>= 0.0.0)
     runit (>= 0.0.0)
+  redisio (2.3.0)
+    build-essential (>= 0.0.0)
+    ulimit (>= 0.1.2)
   resque (3.0.4)
     redis (>= 0.0.0)
     runit (>= 0.0.0)
@@ -100,6 +103,7 @@ GRAPH
     partial_search (>= 0.0.0)
   sshd (1.1.3)
   sudo (2.9.0)
+  ulimit (0.3.3)
   unicorn (2.1.2)
     build-essential (>= 0.0.0)
   users (1.7.0)

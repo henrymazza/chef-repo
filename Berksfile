@@ -1,5 +1,6 @@
 source 'https://supermarket.chef.io'
 
+cookbook 'runit'
 cookbook 'application'
 cookbook 'application_nginx', git: 'https://github.com/poise/application_nginx.git'
 cookbook 'application_ruby', '= 3.0.2'
@@ -14,10 +15,9 @@ cookbook 'ntp'
 cookbook 'postfix'
 cookbook 'postgresql'
 cookbook "rbenv", github: "corewebdesign/chef-rbenv"
-cookbook 'redis'
+cookbook 'redisio'
 cookbook 'resque'
 cookbook 'ruby_build'
-cookbook 'runit'
 cookbook 'ssh_known_hosts'
 cookbook 'sudo'
 cookbook 'users', '= 1.7.0'
