@@ -36,7 +36,6 @@ end
 rbenv_ruby aki2_ruby
 
 package "imagemagick"
-package "nodejs"
 
 gem_package "mysql" # install mysql on chef's running ruby environment
 

@@ -17,7 +17,6 @@
 
 include_recipe "iptables"
 include_recipe "postgresql::server"
-include_recipe "nodejs::nodejs_from_binary"
 
 iptables_rule 'http' do
   action :enable
@@ -71,15 +70,8 @@ rbenv_gem "sass" do
   action :install
 end
 
-package "libpq-dev"
+package "libpq-dev" # postgres???
 package "imagemagick"
-
-nodejs_npm "bower" do
-  not_if "ls /usr/local/bin/bower"
-end
-nodejs_npm "ember-cli" do
-  not_if 'ls /usr/bin/ember'
-end
 
 execute "createdb uni" do
   user 'postgres'
@@ -119,7 +111,7 @@ exec bundle $@
 end
 
 application "uni" do
-  action :force_deploy
+  action :deploy
   path "/home/uni/app"
   owner "uni"
   group "apps"
@@ -198,30 +190,6 @@ application "uni" do
     static_files "/assets" => "images"
     # use our very personal nginx conf file
     template "load_balancer.conf.erb"
-  end
-
-  before_migrate do
-    #nodejs_npm "install npm from package.json" do
-      #path "#{release_path}/frontend/"# The root path to your project, containing a package.json file
-      #json true
-      #user "uni"
-      #options ['--production'] # Only install dependencies. Skip devDependencies
-    #end
-    execute "npm install at frontend" do
-      cwd "#{release_path}/frontend/"
-      command 'npm install'
-      environment ({'HOME' => '/home/uni'})
-      user 'uni'
-      group 'apps'
-      ignore_failure true
-    end
-    execute "bower install at frontend" do
-      cwd "#{release_path}/frontend/"
-      command 'bower install'
-      environment ({'HOME' => '/home/uni'})
-      user 'uni'
-      group 'apps'
-    end
   end
 end
 

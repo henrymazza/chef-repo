@@ -11,9 +11,7 @@
 # (?) domcarlo service should be domcarlo owned? or apps group owned?
 #
 
-package "nodejs"
-
-ruby_version = "2.0.0-p247"
+ruby_version = "2.0.0-p648"
 
 group "apps"
 

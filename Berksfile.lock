@@ -11,7 +11,6 @@ DEPENDENCIES
   iptables
   logrotate
   nginx
-  nodejs
   ntp
   postfix
   postgresql
@@ -41,10 +40,6 @@ GRAPH
     runit (~> 1.0)
     unicorn (>= 0.0.0)
   apt (3.0.0)
-  ark (1.0.1)
-    build-essential (>= 0.0.0)
-    seven_zip (>= 0.0.0)
-    windows (>= 0.0.0)
   build-essential (3.2.0)
     seven_zip (>= 0.0.0)
   chef-client (4.3.3)
@@ -56,8 +51,6 @@ GRAPH
   cron (1.7.6)
   database (5.0.1)
     postgresql (>= 1.0.0)
-  homebrew (2.1.0)
-    build-essential (>= 2.1.2)
   hostname (0.3.0)
     hostsfile (>= 0.0.0)
   hostsfile (2.4.5)
@@ -73,12 +66,6 @@ GRAPH
     ohai (>= 1.1.4)
     runit (>= 0.0.0)
     yum (>= 0.0.0)
-  nodejs (2.4.4)
-    apt (>= 0.0.0)
-    ark (>= 0.0.0)
-    build-essential (>= 0.0.0)
-    homebrew (>= 0.0.0)
-    yum-epel (>= 0.0.0)
   ntp (1.11.0)
     windows (>= 1.38.0)
   ohai (3.0.1)
@@ -119,5 +106,3 @@ GRAPH
   windows (1.39.2)
     chef_handler (>= 0.0.0)
   yum (3.10.0)
-  yum-epel (0.6.6)
-    yum (~> 3.10.0)

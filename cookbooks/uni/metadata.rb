@@ -14,5 +14,3 @@ depends "application_ruby"
 depends "application_nginx"
 depends "iptables"
 depends "runit"
-depends "nodejs"
-depends 'nodejs-0.12.0-wrapper'

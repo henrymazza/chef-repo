@@ -13,7 +13,3 @@ set['postgresql']['contrib']['packages'] = ["postgresql-contrib-9.4"]
 set['unicorn']['worker_timeout'] = 122
 set['application_ruby']['worker_timeout'] = 123
 set['unicorn_config']['worker_timeout'] = 124
-set['nodejs']['install_method'] = 'binary'
-set['nodejs']['version'] = '0.12.0'
-set['nodejs']['repo'] = 'https://deb.nodesource.com/node_0.12'
-set['nodejs']['binary']['checksum']['linux_x64'] = '3bdb7267ca7ee24ac59c54ae146741f70a6ae3a8a8afd42d06204647fe9d4206'
