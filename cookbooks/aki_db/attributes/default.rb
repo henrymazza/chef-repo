@@ -1,4 +1,4 @@
-node.default[:unicorn][:port] = '3080'
+set['unicorn']['options'] = nil
 node.default['rbenv']['user_installs'] = [
   { 'user'    => 'aki_db',
     'rubies'  => ['2.1.5'],

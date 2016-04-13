@@ -10,8 +10,7 @@ set['postgresql']['config']['ssl_cert_file'] = "/etc/ssl/certs/ssl-cert-snakeoil
 set['postgresql']['client']['packages']  = ["postgresql-client-9.4"]
 set['postgresql']['server']['packages']  = ["postgresql-9.4"]
 set['postgresql']['contrib']['packages'] = ["postgresql-contrib-9.4"]
-set['unicorn']['worker_timeout'] = 122
-set['application_ruby']['worker_timeout'] = 123
-set['unicorn_config']['worker_timeout'] = 124
 set['redisio']['requirepass'] = 'nsxf969'
 default['uni']['revision'] = 'master'
+set['unicorn']['options'] = nil
+

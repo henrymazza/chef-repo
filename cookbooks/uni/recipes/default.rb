@@ -19,6 +19,7 @@ include_recipe "iptables"
 include_recipe "postgresql::server"
 include_recipe "redisio"
 include_recipe "redisio::enable"
+include_recipe 'nodejs'
 
 iptables_rule 'redis' do
   action :enable
@@ -107,6 +108,8 @@ file "/home/uni/bundle_wrapper.sh" do
   content <<-EOH
 #!/bin/bash
 
+export REDIS_URL=redis://localhost/
+export SKIP_EMBER=true
 export RAILS_ENV=production
 source /etc/profile.d/rbenv.sh
 
@@ -131,6 +134,8 @@ application "uni" do
 
   # Rails resource uses it internally
   environment ({
+    'REDIS_URL' => 'redis://localhost/',
+    'SKIP_EMBER' => 'true',
     'RAILS_ENV' => 'production',
     'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     'JUJUBA' => 'assassina'
@@ -172,7 +177,7 @@ application "uni" do
   end
 
   rails do
-    precompile_assets false # (???) it fails if chef's embedded ruby is less than 2.0
+    precompile_assets true # (???) it fails if chef's embedded ruby is less than 2.0
     bundler true
     database_template "database.yml.erb"
     bundle_command "/home/uni/bundle_wrapper.sh"
@@ -182,13 +187,15 @@ application "uni" do
 
   unicorn "/etc/unicorn/" do
     # port or socket to make comunication between nginx and unicorn
-    port "/tmp/unicorn2.todo.sock"
-    worker_timeout 120
+    listen({ "/tmp/unicorn2.todo.sock" => nil})
+    #port "/tmp/unicorn2.todo.sock"
+    options nil
+    worker_timeout 1200
     bundler true
-    worker_processes 6
     stderr_path "/home/uni/logs/unicorn.stderr.log"
     stdout_path "/home/uni/logs/unicorn.stdout.log"
     preload_app true
+    worker_processes 1
   end
 
   nginx_load_balancer do

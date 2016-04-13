@@ -10,6 +10,11 @@
 # (?) create aki2 home first
 # (?) aki2 service should be aki2 owned? or apps group owned?
 #
+include_recipe 'libmysqlclient'
+
+mysql2_chef_gem 'default' do
+  action :install
+end
 
 aki2_ruby = "2.0.0-p648"
 
@@ -175,11 +180,11 @@ application "aki2" do
 
     log `pwd && ls #{current_release}`
 
-    execute "rm database.yml" do
-      user          "aki2"
-      group         "apps"
-      cwd           "#{ current_release }/config/"
-    end
+    #execute "rm database.yml" do
+      #user          "aki2"
+      #group         "apps"
+      #cwd           "#{ current_release }/config/"
+    #end
     # this code is here in the assumption that if it doesn't exist the symlink will fail
     execute "rm -rf #{current_release}/public/system #{current_release}/tmp/pids #{current_release}/log" do
       user          "aki2"
@@ -196,10 +201,10 @@ application "aki2" do
   end
 
   unicorn do
-    # port or socket to make comunication between nginx and unicorn
-    port "/tmp/unicorn.todo.sock"
+    options nil
+    listen({"/tmp/unicorn.todo.sock" => nil})
 
-    worker_processes 4
+    worker_processes 2
   end
 
   nginx_load_balancer do

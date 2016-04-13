@@ -32,6 +32,16 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://unicorn2;
+
+    gzip              on;
+    gzip_static on;
+    gzip_http_version 1.0;
+    gzip_disable      "MSIE [1-6]\.(?!.*SV1)";
+    gzip_buffers 4 16k;
+    gzip_comp_level 2;
+    gzip_min_length 0;
+    gzip_types text/plain text/css application/vnd.api+json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_proxied expired no-cache no-store private auth;
   }
 
   error_page 500 502 503 504 /500.html;

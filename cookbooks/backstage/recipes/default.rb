@@ -9,6 +9,8 @@
 
 include_recipe "iptables"
 
+package 'htop'
+
 iptables_rule 'ssh' do
   action :enable
 end

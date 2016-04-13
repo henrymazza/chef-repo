@@ -12,5 +12,7 @@ depends "database"
 depends "application"
 depends "application_ruby"
 depends "application_nginx"
+depends 'libmysqlclient', '~> 0.1.0'
+depends 'mysql2_chef_gem'
 depends "mysql"
 

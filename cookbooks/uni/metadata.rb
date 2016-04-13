@@ -15,3 +15,4 @@ depends "application_nginx"
 depends "iptables"
 depends "runit"
 depends "redisio"
+depends 'nodejs'
