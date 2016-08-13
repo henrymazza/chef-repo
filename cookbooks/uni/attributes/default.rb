@@ -10,7 +10,6 @@ set['postgresql']['config']['ssl_cert_file'] = "/etc/ssl/certs/ssl-cert-snakeoil
 set['postgresql']['client']['packages']  = ["postgresql-client-9.4"]
 set['postgresql']['server']['packages']  = ["postgresql-9.4"]
 set['postgresql']['contrib']['packages'] = ["postgresql-contrib-9.4"]
-set['redisio']['requirepass'] = 'nsxf969'
+set['redisio']['default_settings']['address'] = '127.0.0.1'
 default['uni']['revision'] = 'master'
 set['unicorn']['options'] = nil
-
