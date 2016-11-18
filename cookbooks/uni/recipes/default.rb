@@ -22,7 +22,7 @@ include_recipe "redisio::enable"
 include_recipe 'nodejs'
 
 iptables_rule 'redis' do
-  action :enable
+  action :disable
 end
 iptables_rule 'http' do
   action :enable
