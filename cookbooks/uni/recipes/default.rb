@@ -111,6 +111,8 @@ file "/home/uni/bundle_wrapper.sh" do
 export REDIS_URL=redis://localhost/
 export SKIP_EMBER=true
 export RAILS_ENV=production
+export ACRAS_TOKEN=#{data_bag_item('secrets', 'acras')['token']}
+export ACRAS_SERVER=#{data_bag_item('secrets', 'acras')['server']}
 source /etc/profile.d/rbenv.sh
 
 exec bundle $@
