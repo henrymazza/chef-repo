@@ -164,7 +164,7 @@ application "aki2" do
 
   aki2 = search('apps', "id:aki2").first
   deploy_key aki2['deploy_key']
-  symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log' => 'log'})
+  symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log/production.log' => 'log'})
 
   repository "git@github.com:henrymazza/akivest.git"
 
@@ -186,7 +186,7 @@ application "aki2" do
       #cwd           "#{ current_release }/config/"
     #end
     # this code is here in the assumption that if it doesn't exist the symlink will fail
-    execute "rm -rf #{current_release}/public/system #{current_release}/tmp/pids #{current_release}/log" do
+    execute "rm -rf #{current_release}/public/system #{current_release}/tmp/pids #{current_release}/log/prodution.log" do
       user          "aki2"
       group         "apps"
     end
@@ -219,3 +219,10 @@ application "aki2" do
 
 end
 
+logrotate_app "aki2" do
+  cookbook "logrotate"
+  path "/home/aki2/app/shared/log/production.log"
+  frequency "daily"
+  rotate 30
+  create "644 aki2 apps"
+end
