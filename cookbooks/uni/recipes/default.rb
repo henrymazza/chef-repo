@@ -63,6 +63,12 @@ directory "/home/uni/app/shared/log/" do
   group "apps"
 end
 
+directory "/home/uni/app/shared/files/" do
+  recursive true
+  owner "uni"
+  group "apps"
+end
+
 directory "/home/uni/s3" do
   owner "uni"
   group "apps"
@@ -111,7 +117,10 @@ file "/home/uni/bundle_wrapper.sh" do
 export REDIS_URL=redis://localhost/
 export SKIP_EMBER=true
 export RAILS_ENV=production
+export ACRAS_TOKEN=EygjMLvmjdXmbijvi3PQajLJDED8Kfyg
+export ACRAS_SERVER=producao.acrasnfe.acras.com.br
 source /etc/profile.d/rbenv.sh
+
 
 exec bundle $@
   EOH
@@ -133,18 +142,20 @@ application "uni" do
   end
 
   # Rails resource uses it internally
-  environment ({
+  environment({
     'REDIS_URL' => 'redis://localhost/',
     'SKIP_EMBER' => 'true',
     'RAILS_ENV' => 'production',
     'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    'JUJUBA' => 'assassina'
+    'JUJUBA' => 'assassina',
+    'ACRAS_TOKEN' => 'EygjMLvmjdXmbijvi3PQajLJDED8Kfyg',
+    'ACRAS_SERVER' => 'producao.acrasnfe.acras.com.br'
   })
 
   uni = search('apps', "id:uni").first
   deploy_key uni['deploy_key']
   # it's supposed to be ok with the defaults
-  symlinks( {'log' => 'log', 'ibge.sqlite3' => 'db/ibge.sqlite3'})
+  symlinks( {'log/production.log' => 'log', 'ibge.sqlite3' => 'db/ibge.sqlite3', 'files' => 'public/files'})
 
   repository "git@github.com:henrymazza/uni.git"
 
@@ -205,6 +216,7 @@ application "uni" do
   end
 end
 
+runit_service "uni-sidekiq"
 
 # the config file was made by hand, so...
 package 's3cmd'
@@ -217,4 +229,12 @@ cron "cookbooks_report" do
   mailto "admin@ciadouniforme.com"
   command %Q{sudo -u uni pg_dump uni > /tmp/uni.psql && \
     s3cmd put /tmp/uni.psql s3://ciadouniforme.com/backups/uni-`date -I`.psql}
+end
+
+logrotate_app "uni" do
+  cookbook "logrotate"
+  path "/home/uni/app/shared/log/production.log"
+  frequency "daily"
+  create "644 uni apps"
+  rotate 30
 end
