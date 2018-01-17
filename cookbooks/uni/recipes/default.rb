@@ -57,6 +57,12 @@ directory "/home/uni/logs/" do
   group "apps"
 end
 
+directory "/home/uni/app/shared/pids/" do
+  recursive true
+  owner "uni"
+  group "apps"
+end
+
 directory "/home/uni/app/shared/log/" do
   recursive true
   owner "uni"
@@ -137,6 +143,10 @@ application "uni" do
 
   restart_command do
     execute "service uni restart"
+
+    # restart sidekiq
+    execute "#{release_path}/bin/sidekiq-ctl stop /home/uni/app/shared/pids/sidekiq.pid || true"
+    execute "service uni-sidekiq start"
     user "root"
   end
 
@@ -154,7 +164,7 @@ application "uni" do
   uni = search('apps', "id:uni").first
   deploy_key uni['deploy_key']
   # it's supposed to be ok with the defaults
-  symlinks( {'log/production.log' => 'log', 'ibge.sqlite3' => 'db/ibge.sqlite3', 'files' => 'public/files'})
+  symlinks( {'log/production.log' => 'log', 'pids' => 'tmp', 'ibge.sqlite3' => 'db/ibge.sqlite3', 'files' => 'public/files'})
 
   repository "git@github.com:henrymazza/uni.git"
 
