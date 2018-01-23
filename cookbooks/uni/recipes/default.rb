@@ -236,7 +236,7 @@ cron "cookbooks_report" do
   minute "0"
   user "HMz"
   mailto "admin@ciadouniforme.com"
-  command %Q{sudo -u uni pg_dump uni > /tmp/uni.psql && \
+  command %Q{sudo -u uni pg_dump -F c uni > /tmp/uni.psql && \
     s3cmd put /tmp/uni.psql s3://ciadouniforme.com/backups/uni-`date -I`.psql}
 end
 
