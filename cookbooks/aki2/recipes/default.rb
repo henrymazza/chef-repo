@@ -160,13 +160,17 @@ application "aki2" do
   owner "aki2"
   group "apps"
 
-  revision "master"
+  # revision "master"
 
-  aki2 = search('apps', "id:aki2").first
-  deploy_key aki2['deploy_key']
   symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log/production.log' => 'log'})
 
-  repository "git@github.com:henrymazza/akivest.git"
+  git "/home/uni_staging/app/"do
+    repository  "git@github.com:henrymazza/akivest.git"
+    aki2 = search('apps', "id:aki2").first
+    deploy_key aki2['deploy_key']
+
+    revision node['aki2']['revision']
+  end
 
   before_symlink do
     current_release = release_path

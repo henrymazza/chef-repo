@@ -9,6 +9,10 @@
 
 include_recipe "iptables"
 
+chef_client_updater 'Install latest Chef 12.x' do
+  version '12'
+end
+
 package 'htop'
 
 iptables_rule 'ssh' do

@@ -3,10 +3,18 @@ description "The base role for systems that serve HTTP traffic, Rails ready. Thi
 
 default_attributes(
   "set_fqdn" => '*.officina.me',
+  "ruby_build" => {
+    "update" => 'true'
+  },
   "rbenv" => {
-    'rubies'  => ['2.3.0', '2.0.0-p648'],
+    'rubies'  => ['2.3.0', '2.0.0-p648', '2.5.0'],
     "global" => "2.3.0",
     "gems" => {
+      "2.5.0" => [
+        {'name' => 'bundler'},
+        {'name' => 'rake'},
+        {'name' => 'rack', "version" => "2.0.4"}
+      ],
       "2.3.0" => [
         {'name' => 'bundler'},
         {'name' => 'rake'}
@@ -53,6 +61,6 @@ run_list(
   "recipe[backstage]",
   "recipe[sudo]",
   "recipe[postfix]",
-  "recipe[ssh_known_hosts]",
+  # "recipe[ssh_known_hosts]",
   "role[monitoring]"
 )

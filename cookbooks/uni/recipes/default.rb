@@ -156,7 +156,6 @@ application "uni" do
     'SKIP_EMBER' => 'true',
     'RAILS_ENV' => 'production',
     'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    'JUJUBA' => 'assassina',
     'ACRAS_TOKEN' => 'EygjMLvmjdXmbijvi3PQajLJDED8Kfyg',
     'ACRAS_SERVER' => 'producao.acrasnfe.acras.com.br'
   })
@@ -184,15 +183,15 @@ application "uni" do
   before_restart do
     current_release = release_path
     # load database if it haven't being done yet
-    execute " bin/rake bootstrap:all" do
-      environment ({
-        'RAILS_ENV' => 'production',
-        'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      })
-      cwd current_release
-      user "uni"
-      group "apps"
-    end
+    # execute " bin/rake bootstrap:all" do
+    #   environment ({
+    #     'RAILS_ENV' => 'production',
+    #     'PATH' => './bin:/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    #   })
+    #   cwd current_release
+    #   user "uni"
+    #   group "apps"
+    # end
 
   end
 
@@ -203,7 +202,6 @@ application "uni" do
     bundle_command "/home/uni/bundle_wrapper.sh"
     #bundle_command "bin/bundle"
   end
-
 
   unicorn "/etc/unicorn/" do
     # port or socket to make comunication between nginx and unicorn
