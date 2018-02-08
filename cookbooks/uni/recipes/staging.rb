@@ -89,7 +89,7 @@ end
 
 uni_staging_env = {
   'RAILS_VERSION' => '5.0.6',
-  'REDIS_URL' => 'redis://localhost:6379/',
+  'REDIS_URL' => 'redis://localhost:6380/',
   'SKIP_EMBER' => 'true',
   'RAILS_ENV' => 'production',
   'PATH' => './bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
