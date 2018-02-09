@@ -20,7 +20,6 @@ include_recipe 'postgresql::server'
 include_recipe 'redisio'
 include_recipe 'redisio::enable'
 include_recipe 'nodejs'
-include_recipe 'nginx'
 
 uni_staging_ruby = "2.5.0"
 uni_staging_home = "/home/uni_staging"
@@ -125,9 +124,8 @@ application "/home/uni_staging/app/" do
   # Rails resource uses it internally
   environment uni_staging_env
 
-  # it's supposed to be ok with the defaults
-  # symlinks( {'log/production.log' => 'log', 'pids' => 'tmp', 'ibge.sqlite3' => 'db/ibge.sqlite3', 'files' => 'public/files'})
   directory 'public/files'
+  directory 'log'
 
   bundle_install do
     binstubs true
