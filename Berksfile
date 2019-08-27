@@ -1,6 +1,8 @@
 source 'https://supermarket.chef.io'
-cookbook 'rbenv', path: '/Users/fabiomazarotto/Development/3rd/chef-rbenv/'
+# cookbook 'rbenv'#, path: '/Users/HMz/Development/3rd/chef-rbenv/'
 metadata
+
+solver :ruby, :preferred
 
 cookbook 'runit'
 cookbook 'apt'
@@ -21,7 +23,13 @@ cookbook 'ntp'
 cookbook 'postfix'
 cookbook 'postgresql'
 # cookbook 'rbenv', github: 'corewebdesign/chef-rbenv'
+# cookbook 'ruby_rbenv', github: 'sous-chefs/ruby_rbenv'
+group :vendor do
+  cookbook 'acme'
+  cookbook 'rbenv', github: 'RiotGamesCookbooks/rbenv-cookbook'
+end
 
+cookbook 'tar'
 cookbook 'redisio'
 cookbook 'resque'
 cookbook 'ruby_build'
@@ -36,3 +44,6 @@ cookbook 'nodejs'
 cookbook 'libmysqlclient', '~> 0.1.0'
 cookbook 'mysql2_chef_gem'
 cookbook 'mysql'
+cookbook 'php-fpm'
+
+# cookbook 'wordpress_nginx', git: 'https://github.com/roots/wordpress-nginx.git'

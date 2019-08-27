@@ -10,6 +10,8 @@
 # (?) create aki2 home first
 # (?) aki2 service should be aki2 owned? or apps group owned?
 #
+# TODO: Switch to `ruby_rbenv (2019)` cookbook instead of `rvenv (2013)`
+#
 include_recipe 'libmysqlclient'
 
 mysql2_chef_gem 'default' do
@@ -39,10 +41,14 @@ directory "/home/aki2/s3" do
 end
 
 rbenv_ruby aki2_ruby
+ruby_rbenv aki2_ruby
 
 package "imagemagick"
 
 gem_package "mysql" # install mysql on chef's running ruby environment
+rbenv_gem 'mysql' do
+  rbenv_version aki2_ruby
+end
 
 mysql_service 'default' do
   bind_address '0.0.0.0'
@@ -153,16 +159,29 @@ exec bundle $@
 
 end
 
+# symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log/production.log' => 'log'})
+
+# link '/home/aki2/app/current/public/system' do
+#   to '/home/aki2/app/shared/system/'
+# end
+
+# link '/home/aki2/app/pids' do
+#   to '/home/aki2/app/tmp/pids'
+# end
+
+# link '/home/aki2/app/log/production.log' do
+#   to '/home/aki2/app/log'
+# end
+
+
 # TODO untar file and move backup to place at 'shared_path'
-application "aki2" do
+application "/home/aki2/release/" do
   action :deploy
   path "/home/aki2/app"
   owner "aki2"
   group "apps"
 
   # revision "master"
-
-  symlinks( {'system' => 'public/system', 'pids' => 'tmp/pids', 'log/production.log' => 'log'})
 
   git "/home/uni_staging/app/"do
     repository  "git@github.com:henrymazza/akivest.git"
@@ -208,7 +227,7 @@ application "aki2" do
     options nil
     listen({"/tmp/unicorn.todo.sock" => nil})
 
-    worker_processes 2
+    worker_processes 1
   end
 
   nginx_load_balancer do

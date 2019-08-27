@@ -3,6 +3,13 @@ description "The base role for systems that serve HTTP traffic, Rails ready."
 
 override_attributes(
   # default[:nginx][:gzip_http_version] = "1.1"
+  "php-fpm" => {
+    "pools" => {
+      "default" => {
+        :enable => true
+      }
+    }
+  },
   :nginx => {
     :gzip_http_version => '1.0'
   },
@@ -11,5 +18,5 @@ override_attributes(
   }
 )
 
-run_list "recipe[nginx]", "recipe[postfix]", "recipe[postgresql::server]";
-
+run_list "recipe[nginx]", "recipe[postfix]",
+         "recipe[postgresql::server]", "recipe[php-fpm]"

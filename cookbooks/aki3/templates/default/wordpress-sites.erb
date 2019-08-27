@@ -1,0 +1,48 @@
+server {
+  listen       443;
+
+  server_name  blog.akivest.com.br;
+  root         "/home/aki3/www/";
+  access_log   /var/log/nginx/blog.443.access.log;
+  error_log    /var/log/nginx/blog.443.error.log;
+
+  ssl on;
+  ssl_certificate /etc/nginx/ssl/blog.akivest.com.br.crt;
+  ssl_certificate_key /etc/nginx/ssl/blog.akivest.com.br.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # do not use SSLv3 ref: POODLE
+
+  include <%= node['nginx']['dir'] %>/wordpress.conf;
+}
+
+server {
+  listen      443;
+  rewrite_log on;
+
+  server_name aki3.sampa3.officina.me;
+  root         "/home/aki3/www/";
+  access_log   /var/log/nginx/aki3.443.access.log;
+  error_log    /var/log/nginx/aki3.443.error.log;
+
+  ssl on;
+  ssl_certificate /etc/nginx/ssl/aki3.sampa3.officina.me.crt;
+  ssl_certificate_key /etc/nginx/ssl/aki3.sampa3.officina.me.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # do not use SSLv3 ref: POODLE
+
+  include <%= node['nginx']['dir'] %>/wordpress.conf;
+}
+
+server {
+  listen 80;
+
+  server_name blog.akivest.com.br;
+
+  return 302 https://$host$request_uri;
+}
+
+server {
+  listen       80;
+
+  server_name  aki3.sampa3.officina.me;
+
+  return 302 https://$host$request_uri;
+}

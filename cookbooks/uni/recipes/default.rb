@@ -16,11 +16,20 @@
 #
 
 include_recipe 'iptables'
-include_recipe 'postgresql::server'
 include_recipe 'redisio'
 include_recipe 'redisio::enable'
 include_recipe 'nodejs'
-include_recipe 'nginx'
+
+postgresql_client_install 'PostgreSQL Client' do
+  version '9.4.22'
+end
+
+postgresql_server_install 'PostgreSQL Server install' do
+  action :install
+  version '9.4.22'
+end
+
+nginx_install 'default'
 
 uni_ruby = "2.5.0"
 uni_home = "/home/uni"
@@ -28,6 +37,7 @@ uni_home = "/home/uni"
 iptables_rule 'redis' do
   action :disable
 end
+
 iptables_rule 'http' do
   action :enable
 end
@@ -45,7 +55,6 @@ directory uni_home do
   owner "uni"
   group "apps"
 end
-
 
 template "/home/uni/.bashrc" do
   source "bashrc.erb"
@@ -80,18 +89,22 @@ execute "createdb uni" do
   user 'postgres'
   returns [0, 1]
 end
+
 execute 'createuser uni' do
   user 'postgres'
   returns [0, 1]
 end
+
 execute 'psql uni -c "GRANT ALL PRIVILEGES ON DATABASE uni to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
 end
+
 execute "createdb ibge" do
   user 'postgres'
   returns [0, 1]
 end
+
 execute 'psql ibge -c "GRANT ALL PRIVILEGES ON DATABASE ibge to uni; ALTER ROLE uni SUPERUSER; ALTER DATABASE uni OWNER TO uni;"' do
   user 'postgres'
   returns [0, 1]
@@ -104,8 +117,15 @@ uni_env = {
   'RAILS_ENV' => 'production',
   'PATH' => './bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   'ACRAS_TOKEN' => data_bag_item('secrets', 'acras')['token'],
-  'ACRAS_SERVER' => data_bag_item('secrets', 'acras')['server']
+  'ACRAS_SERVER' => data_bag_item('secrets', 'acras')['server'],
+  'SHOPIFY_KEY' => data_bag_item('secrets', 'shopify')['key'],
+  'SHOPIFY_PASSWORD' => data_bag_item('secrets', 'shopify')['password'],
+  'SHOPIFY_SHOP' => data_bag_item('secrets', 'shopify')['shop']
 }
+
+service 'uni' do
+  action :disable
+end
 
 application "/home/uni/release" do
   action :deploy
@@ -174,7 +194,10 @@ poise_service 'uni-sidekiq-2' do
   environment RAILS_ENV: 'production'
 end
 
-# runit_service "uni-sidekiq"
+# Old service
+runit_service "uni-sidekiq" do
+  action :disable
+end
 
 # the config file was made by hand, so...
 package 's3cmd'
